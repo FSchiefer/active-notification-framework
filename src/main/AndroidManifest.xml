@@ -1,0 +1,72 @@
+<manifest package="de.fiduciagad.noflibrary"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>
+    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
+
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name">
+        <activity
+            android:name="de.fiduciagad.anflibrary.anFConnector.anFSettings.SettingsActivity"
+            android:label="@string/title_activity_settings">
+        </activity>
+        <activity android:name="de.fiduciagad.anflibrary.anFConnector.anFMessageList.MessageListActivity">
+        </activity>
+
+        <service
+            android:name="de.fiduciagad.anflibrary.anFReceiver.anFHandling.anFNotificationTrigger.InstantMessageTriggerService"
+            android:exported="false"/>
+        <service
+            android:name="de.fiduciagad.anflibrary.anFReceiver.anFHandling.anFNotificationTrigger.GeofenceTriggerService"
+            android:exported="false"/>
+        <service
+            android:name="de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.activityRecognition.DetectedActivitiesIntentService"
+            android:exported="false"/>
+        <service
+            android:name="de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.locationAwareness.FetchAddressIntentService"
+            android:exported="false"/>
+        <service
+            android:name="de.fiduciagad.anflibrary.anFReceiver.anFHandling.anFNotificationTrigger.LocationMessageTriggerService"
+            android:exported="false"/>
+
+        <activity android:name="de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageViews.LocationMessageActivity">
+        </activity>
+
+        <activity android:name="de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageViews.ShortMessageActivity">
+        </activity>
+
+        <service android:name="de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageNotificationViews.AnswerService">
+        </service>
+        <service android:name="de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageNotificationViews.CallService">
+        </service>
+
+
+        <service android:name="de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageNotificationViews.anFClicked.NotificationClickedService">
+        </service>
+
+        <service android:name="de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageNotificationViews.anFClicked.SummaryClickedService">
+        </service>
+
+        <receiver android:name="de.fiduciagad.anflibrary.anFReceiver.anFHandling.anFNotificationControl.PowerConnectedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="de.fiduciagad.anflibrary.anFReceiver.anFHandling.anFNotificationControl.BootCompletedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action."/>
+            </intent-filter>
+        </receiver>
+
+
+    </application>
+</manifest>

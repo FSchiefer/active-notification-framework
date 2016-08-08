@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/useCalendarKey"
+        android:summary="@string/useCalendarMessage"
+        android:title="@string/useCalendar" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/usePositionKey"
+        android:summary="@string/usePositionMessage"
+        android:title="@string/usePosition" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/useActivityRecognitionKey"
+        android:summary="@string/useActivityRecognitionMessage"
+        android:title="@string/useActivityRecognition" />
+    <de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.ModifiedEditText
+        android:defaultValue="@string/home_default"
+        android:key="@string/home_key"
+        android:summary="@string/home_summary"
+        android:title="@string/home_name" />
+    <de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.ModifiedEditText
+        android:defaultValue="@string/work_default"
+        android:key="@string/work_key"
+        android:summary="@string/work_summary"
+        android:title="@string/work_name" />
+</PreferenceScreen>

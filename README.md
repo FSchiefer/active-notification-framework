@@ -4,3 +4,4 @@ The Fiducia & GAD IT AG  is the service provider for information technology of t
 # active-notification-framework
 framework managing notifications on multiple registered devices (phone,watch,...) based on activity, location and behaviour
 
+

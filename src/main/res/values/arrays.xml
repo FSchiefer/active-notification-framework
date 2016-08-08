@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="vibration_names">
+        <item>lang</item>
+        <item>kurz</item>
+        <item>sehr lang</item>
+    </string-array>
+
+    <string-array name="vibration_values">
+        <item>"0"</item>
+        <item>"1"</item>
+        <item>"2"</item>
+    </string-array>
+
+
+<!--
+    <string-array name="message_values">
+        <item>@string/timebasedValue</item>
+        <item>@string/locationbasedmessageValue</item>
+        <item>@string/shortmessageValue</item>
+        <item>@string/informationValue</item>
+        <item>@string/datemessageValue</item>
+        <item>@string/accountactionValue</item>
+    </string-array>
+-->
+
+    <string-array name="checkBoxOptions">
+        <item>@string/urgency</item>
+        <item>@string/confidential</item>
+        <item>@string/allUrgentSummary</item>
+    </string-array>
+
+    <string-array name="curreny_values">
+        <item>@string/payPal</item>
+        <item>@string/ecCARD</item>
+        <item>@string/cash</item>
+        <item>@string/visa</item>
+    </string-array>
+
+
+
+
+</resources>
