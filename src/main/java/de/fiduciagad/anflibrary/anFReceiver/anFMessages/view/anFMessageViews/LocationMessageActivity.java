@@ -17,7 +17,7 @@ import de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.ViewConstants;
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageViews.messageFragments.LocationDependencyFragment;
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.PositionDependency;
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageViews.messageFragments.AnFTextFragment;
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -56,7 +56,7 @@ public class LocationMessageActivity extends FragmentActivity implements Locatio
             if (jsonMessage != null) {
                 String extra;
                 if (messageParts.getAnFText() != null) {
-                    extra = messageParts.getAnFText().getNofJSONObject().toString();
+                    extra = messageParts.getAnFText().getAnFJSONObject().toString();
                     AnFTextFragment textFragment = AnFTextFragment.newInstance(extra);
                     fragmentTransaction.add(R.id.mofTextFragment, textFragment);
                 }

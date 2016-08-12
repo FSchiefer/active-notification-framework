@@ -34,13 +34,13 @@ public class GeofenceTriggerService extends IntentService {
             List<MessageDAO> messages = messageDB.getPositionDependentMessages();
             List<MessageDAO> permanentFences = new ArrayList<>();
             for (MessageDAO message : messages) {
-                if (message.getNoFMessageParts().getPositionDependency().getDuration() < 1) {
+                if (message.getAnFMessageParts().getPositionDependency().getDuration() < 1) {
                     permanentFences.add(message);
                 }
             }
             if (permanentFences.size() > 0) {
                 for (MessageDAO message : permanentFences) {
-                    handling.addMessageToGeofenceList(message.getNoFMessageParts(), message.getId());
+                    handling.addMessageToGeofenceList(message.getAnFMessageParts(), message.getId());
                 }
             }
         }

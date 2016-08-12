@@ -1,4 +1,4 @@
-package de.fiduciagad.noflibrary;
+package de.fiduciagad.anflibrary;
 
 import org.junit.Test;
 

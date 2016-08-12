@@ -2,7 +2,7 @@ package de.fiduciagad.anflibrary.anFMessageCreator;
 
 import android.content.Context;
 
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

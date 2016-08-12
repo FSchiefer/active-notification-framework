@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.PositionDependency;
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.RemoteInput;
 import android.util.Log;
 
-import de.fiduciagad.anflibrary.anFConnector.NoFConnector;
+import de.fiduciagad.anflibrary.anFConnector.AnFConnector;
 import de.fiduciagad.anflibrary.anFConnector.anFInterfaces.ReceiverInterface;
 
 /**
@@ -27,7 +27,7 @@ public class AnswerService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        ReceiverInterface receiver = NoFConnector.getReceiver();
+        ReceiverInterface receiver = AnFConnector.getReceiver();
         Log.i(CLASS_NAME, "Hallo Welt");
         if (intent != null) {
             Bundle remoteInput = RemoteInput.getResultsFromIntent(intent);

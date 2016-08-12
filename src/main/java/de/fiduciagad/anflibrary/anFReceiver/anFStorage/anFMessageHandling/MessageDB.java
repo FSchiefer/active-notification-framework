@@ -138,7 +138,7 @@ public class MessageDB extends AnFOpenHandler {
     }
 
     public Cursor query() {
-        return queryNoFMessages();
+        return queryAnFMessages();
     }
 
     private void getMessagesFromCursor(Cursor c, List<MessageDAO> messageList) {
@@ -154,7 +154,7 @@ public class MessageDB extends AnFOpenHandler {
             MessageParts m = new MessageParts(context);
             m.generateMessageParts(c.getString(ciMessage));
             message.setId(c.getInt(ciID));
-            message.setNoFMessageParts(m);
+            message.setAnFMessageParts(m);
             messageList.add(message);
             Log.d(CLASS_NAME, " Messages found " + messageList.size());
         }

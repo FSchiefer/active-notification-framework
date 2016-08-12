@@ -21,7 +21,7 @@ import de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageNotificat
 import de.fiduciagad.anflibrary.anFReceiver.anFStorage.AnFOpenHandler;
 import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFServiceHandling.ServiceDB;
 import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFMessageHandling.MessageDB;
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,7 +73,7 @@ public class MessageListActivity extends Activity {
             }
         });
 
-        ca = new NoFMessageAdapter(this);
+        ca = new AnFMessageAdapter(this);
         list.setAdapter(ca);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

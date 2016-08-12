@@ -27,11 +27,11 @@ public class MessageDAO extends AnFOpenHandler {
         this.updateReadStatus(id);
     }
 
-    public MessageParts getNoFMessageParts() {
+    public MessageParts getAnFMessageParts() {
         return anFMessageParts;
     }
 
-    public AnFMessage getNoFMessage() {
+    public AnFMessage getAnFMessage() {
 
         if (anFMessage == null) {
             anFMessage = AnFMessage.getMessage(context, anFMessageParts);
@@ -41,7 +41,7 @@ public class MessageDAO extends AnFOpenHandler {
 
     public void insert(AnFMessage anFMessage) {
         this.anFMessage = anFMessage;
-        this.insertNoFMessage(this);
+        this.insertAnFMessage(this);
         this.close();
     }
 
@@ -53,7 +53,7 @@ public class MessageDAO extends AnFOpenHandler {
         this.id = id;
     }
 
-    public void setNoFMessageParts(MessageParts messageParts) {
+    public void setAnFMessageParts(MessageParts messageParts) {
         this.anFMessageParts = messageParts;
     }
 }

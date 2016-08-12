@@ -15,8 +15,8 @@ import de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageNotificat
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.AnFText;
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.PositionDependency;
 import de.fiduciagad.anflibrary.anFReceiver.anFStorage.AnFOpenHandler;
-import de.fiduciagad.noflibrary.R;
-import de.fiduciagad.anflibrary.anFConnector.NoFConnector;
+import de.fiduciagad.anflibrary.R;
+import de.fiduciagad.anflibrary.anFConnector.AnFConnector;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,9 +29,9 @@ import java.util.Date;
  * Created by Felix Schiefer on 30.01.2016.
  * Adapter to display messages in the message list
  */
- class NoFMessageAdapter extends CursorAdapter {
+ class AnFMessageAdapter extends CursorAdapter {
 
-    private static final String CLASS_NAME = NoFMessageAdapter.class.getSimpleName();
+    private static final String CLASS_NAME = AnFMessageAdapter.class.getSimpleName();
 
     private int iD;
 
@@ -45,7 +45,7 @@ import java.util.Date;
 
     private Context context;
 
-    public NoFMessageAdapter(Context context) {
+    public AnFMessageAdapter(Context context) {
         super(context, null, 0);
         this.context = context;
         date = new Date();
@@ -92,10 +92,10 @@ import java.util.Date;
 
         if (anFText != null && cursor.getInt(ciSent) == 1) {
             ImageView image = (ImageView) view.findViewById(R.id.icon);
-            image.setImageResource(NoFConnector.getNoFImages(context).getSmallIcon(service, NotificationType.SHORT));
+            image.setImageResource(AnFConnector.getAnFImages(context).getSmallIcon(service, NotificationType.SHORT));
 
             if (positionDependency != null) {
-                image.setImageResource(NoFConnector.getNoFImages(context).getSmallIcon(service, NotificationType.LOCATION));
+                image.setImageResource(AnFConnector.getAnFImages(context).getSmallIcon(service, NotificationType.LOCATION));
             }
 
             TextView textView1 = (TextView) view.findViewById(R.id.text1);

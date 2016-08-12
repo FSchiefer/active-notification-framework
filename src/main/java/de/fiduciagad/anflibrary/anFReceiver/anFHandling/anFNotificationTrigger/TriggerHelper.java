@@ -5,7 +5,7 @@ import android.content.Context;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
-import de.fiduciagad.anflibrary.anFConnector.NoFConnector;
+import de.fiduciagad.anflibrary.anFConnector.AnFConnector;
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextResolver.ContextResolver;
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextValue.ContextAnswer;
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextValue.ContextLevelEnum;
@@ -43,17 +43,17 @@ class TriggerHelper {
 
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             for (MessageDAO message : messages) {
-           /* if (answer.getContextLevel() < message.getNoFMessageParts().getMessageImportance()) {*/
+           /* if (answer.getContextLevel() < message.getAnFMessageParts().getMessageImportance()) {*/
 
                 int messageID = (int) message.getId();
-                AnFMessage anFMessage = message.getNoFMessage();
-                NotificationCompat.Builder nofNotification = anFMessage.getNotificationCompat(answer, messageID);
-                Notification notification1 = nofNotification.build();
+                AnFMessage anFMessage = message.getAnFMessage();
+                NotificationCompat.Builder anfNotification = anFMessage.getNotificationCompat(answer, messageID);
+                Notification notification1 = anfNotification.build();
                 notificationManager.notify(messageID, notification1);
 
                 MessageDB messageDB = new MessageDB(context);
                 message.messageSent();
-                List<MessageDAO> unreadMessages = messageDB.getUnreadMessages(message.getNoFMessageParts().getService());
+                List<MessageDAO> unreadMessages = messageDB.getUnreadMessages(message.getAnFMessageParts().getService());
                 if (unreadMessages.size() > 1 && !notification1.getGroup().equals(NotificationType.LOCATION.toString())) {
                     showGroupSummary(notificationManager, notification1, message, context);
                 }
@@ -66,12 +66,12 @@ class TriggerHelper {
         Notification notification = summaryCompat.build();
         ServiceDB services = new ServiceDB(context);
         List<String> serviceList = services.getServiceList();
-        int serviceId = serviceList.indexOf(message.getNoFMessageParts().getService());
+        int serviceId = serviceList.indexOf(message.getAnFMessageParts().getService());
         if (serviceId == 0) {
             serviceId = serviceList.size();
         }
         int notificationID = 1000000;
-        if (NoFConnector.isSeperateByService()) {
+        if (AnFConnector.isSeperateByService()) {
             notificationID = notificationID * serviceId;
         }
         notificationManager.notify(notificationID, notification);

@@ -19,7 +19,7 @@ import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.ActionAnswe
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.ViewConstants;
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageNotificationViews.anFClicked.NotificationClickedService;
 import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFMessageHandling.MessageDB;
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.VibrationPatterns;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
  */
 public class AnFNotificationCompat extends NotificationCompat.Builder {
 
-    protected AnFMessage nofMessage;
+    protected AnFMessage anfMessage;
     protected String service;
     private ContextAnswer answer;
     private NotificationCompat.WearableExtender extender;
@@ -56,10 +56,10 @@ public class AnFNotificationCompat extends NotificationCompat.Builder {
         this.setAutoCancel(true);
 
         MessageDB messageDB = new MessageDB(context);
-        this.nofMessage = messageDB.getMessage(id);
-        String name = nofMessage.getService();
+        this.anfMessage = messageDB.getMessage(id);
+        String name = anfMessage.getService();
 
-        service = nofMessage.getService();
+        service = anfMessage.getService();
         extender = new NotificationCompat.WearableExtender();
         Intent activityToOpen = new Intent(context, NotificationClickedService.class);
         activityToOpen.putExtra(ViewConstants.ID_EXTRA, id);
@@ -75,7 +75,7 @@ public class AnFNotificationCompat extends NotificationCompat.Builder {
 
         extend(extender);
 
-        setNotification(nofMessage);
+        setNotification(anfMessage);
     }
 
     /**
@@ -86,14 +86,14 @@ public class AnFNotificationCompat extends NotificationCompat.Builder {
      */
     private void setSignal(Context context, String name) {
 
-        Log.i(CLASS_NAME, "AnFMessage is urgent " + nofMessage.isUrgent());
+        Log.i(CLASS_NAME, "AnFMessage is urgent " + anfMessage.isUrgent());
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
 
         setVibration(settings, name);
 
         setSound();
 
-        if (nofMessage.isUrgent()) {
+        if (anfMessage.isUrgent()) {
             this.setPriority(NotificationCompat.PRIORITY_MAX);
         } else {
             this.setPriority(NotificationCompat.PRIORITY_HIGH);
@@ -103,7 +103,7 @@ public class AnFNotificationCompat extends NotificationCompat.Builder {
     }
 
     private void setSound() {
-        if (answerEquals(ContextLevelEnum.S1) && nofMessage.isUrgent()) {
+        if (answerEquals(ContextLevelEnum.S1) && anfMessage.isUrgent()) {
             Log.i(CLASS_NAME, "Sound is Set");
             Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             this.setSound(alarmSound);
@@ -124,7 +124,7 @@ public class AnFNotificationCompat extends NotificationCompat.Builder {
         } else {
             int pattern = Integer.parseInt(settings.getString(name + "_vibration", ""));
             VibrationPatterns patterns = new VibrationPatterns();
-            if ((nofMessage.isUrgent() && answer.isWatchAvailable()) || answerEquals(ContextLevelEnum.S1)) {
+            if ((anfMessage.isUrgent() && answer.isWatchAvailable()) || answerEquals(ContextLevelEnum.S1)) {
                 vibrationPattern = patterns.getVibrationPattern(pattern);
                 Log.i(CLASS_NAME, "Vibration is Set");
             } else {
@@ -141,26 +141,27 @@ public class AnFNotificationCompat extends NotificationCompat.Builder {
         return answer.getContextLevel().equals(levelEnum);
     }
 
-    private void setNotification(AnFMessage nofMessage) {
-        this.setContentTitle(nofMessage.getAnFText().getTitle());
-        if (nofMessage.isConfidential()) {
+    private void setNotification(AnFMessage anfMessage) {
+        this.setContentTitle(anfMessage.getAnFText().getTitle());
+        if (anfMessage.isConfidential()) {
             this.setVisibility(NotificationCompat.VISIBILITY_PRIVATE);
-            this.setContentText("Eine Nachricht des Service " + nofMessage.getService() + " ist angekommen");
+            this.setContentText("A message of the service " + anfMessage.getService() + " is received");
+            //TODO: Enable text for confident messages for multiple languages and extract text to resources
         } else {
             this.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-            this.setContentText(nofMessage.getAnFText().getMessage());
+            this.setContentText(anfMessage.getAnFText().getMessage());
         }
     }
 
     protected void setActions() {
-        ActionAnswers actions = nofMessage.getAnswers();
+        ActionAnswers actions = anfMessage.getAnswers();
         if (actions != null) {
             setAction(actions);
         }
     }
 
     protected void setPaymentInformations() {
-        if (nofMessage.getPaymentInformations() != null) {
+        if (anfMessage.getPaymentInformations() != null) {
 
         }
     }

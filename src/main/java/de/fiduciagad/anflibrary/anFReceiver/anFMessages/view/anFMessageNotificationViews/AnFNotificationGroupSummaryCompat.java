@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
-import de.fiduciagad.anflibrary.anFConnector.NoFConnector;
+import de.fiduciagad.anflibrary.anFConnector.AnFConnector;
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageNotificationViews.anFClicked.SummaryClickedService;
 import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFMessageHandling.MessageDAO;
 import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFMessageHandling.MessageDB;
@@ -30,13 +30,13 @@ public class AnFNotificationGroupSummaryCompat extends NotificationCompat.Builde
 
         MessageDB messageDB = new MessageDB(context);
 
-        String service = message.getNoFMessageParts().getService();
+        String service = message.getAnFMessageParts().getService();
 
         List<MessageDAO> unreadMessages = messageDB.getUnreadMessages(service);
 
         this.setAutoCancel(true);
-        this.setSmallIcon(NoFConnector.getNoFImages(context).getSmallIcon(service, NotificationType.SHORT));
-        this.setLargeIcon(NoFConnector.getNoFImages(context).getBigIcon(service, NotificationType.SHORT));
+        this.setSmallIcon(AnFConnector.getAnFImages(context).getSmallIcon(service, NotificationType.SHORT));
+        this.setLargeIcon(AnFConnector.getAnFImages(context).getBigIcon(service, NotificationType.SHORT));
         this.setGroupSummary(true);
         this.setGroup(notification1.getGroup());
 
@@ -45,22 +45,22 @@ public class AnFNotificationGroupSummaryCompat extends NotificationCompat.Builde
         int i = 0;
         for (MessageDAO messageMessageDAO : unreadMessages) {
             if (i < 5) {
-                Log.i(CLASS_NAME, messageMessageDAO.getNoFMessageParts().getAnFText().getTitle());
-                inBoxStile.addLine(messageMessageDAO.getNoFMessageParts().getAnFText().getTitle());
+                Log.i(CLASS_NAME, messageMessageDAO.getAnFMessageParts().getAnFText().getTitle());
+                inBoxStile.addLine(messageMessageDAO.getAnFMessageParts().getAnFText().getTitle());
             }
             i++;
         }
 
         Intent activityToOpen = new Intent(context, SummaryClickedService.class);
 
-/*        Intent testActivity= new Intent(this, "android.magnet.com.nofnotificationsample.NotificationClickedActivity")*/
+/*        Intent testActivity= new Intent(this, "android.magnet.com.anfnotificationsample.NotificationClickedActivity")*/
         PendingIntent reply = PendingIntent.getService(context, 0, activityToOpen, PendingIntent.FLAG_UPDATE_CURRENT);
 
         setContentIntent(reply);
         this.setContentText(i + " ungelesene Nachrichten");
-        inBoxStile.setBigContentTitle(message.getNoFMessageParts().getService());
+        inBoxStile.setBigContentTitle(message.getAnFMessageParts().getService());
         inBoxStile.setSummaryText(i + " ungelesene Nachrichten");
-        this.setContentTitle(message.getNoFMessageParts().getService());
+        this.setContentTitle(message.getAnFMessageParts().getService());
         this.setStyle(inBoxStile);
     }
 }

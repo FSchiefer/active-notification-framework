@@ -18,7 +18,7 @@ import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.deviceCheck.Devi
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.deviceCheck.WatchDetection;
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.locationAwareness.LocationAnswer;
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.locationAwareness.PositionApiHandling;
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 import com.google.android.gms.location.DetectedActivity;
 
 /**

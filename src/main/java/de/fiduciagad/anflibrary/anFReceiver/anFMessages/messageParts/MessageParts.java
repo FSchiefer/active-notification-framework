@@ -3,7 +3,7 @@ package de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts;
 import android.content.Context;
 import android.content.res.Resources;
 
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,7 +11,7 @@ import org.json.JSONObject;
 import java.util.Iterator;
 
 /**
- * Klasse für ein Halten und erstellen aller Nachrichtenelemente einer NoF Nachricht ohne validierung
+ * Klasse für ein Halten und erstellen aller Nachrichtenelemente einer AnF Nachricht ohne validierung
  * anhand eines Strings oder JSON-Objektes zur besseren Verarbeitung der Nachricht.
  */
 public class MessageParts {
@@ -109,7 +109,7 @@ public class MessageParts {
     /**
      * @return Das unbearbeitete JSON Objekt, von dem die Nachrichtenelemente erstellt wurden
      */
-    public JSONObject getNoFMessage() {
+    public JSONObject getAnFMessage() {
         return anFMessage;
     }
 }

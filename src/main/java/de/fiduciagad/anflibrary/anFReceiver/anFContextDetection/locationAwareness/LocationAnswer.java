@@ -9,7 +9,7 @@ import android.location.Location;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 
 import java.io.IOException;
 import java.util.List;

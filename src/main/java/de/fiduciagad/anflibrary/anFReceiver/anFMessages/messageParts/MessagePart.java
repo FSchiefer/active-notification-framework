@@ -7,19 +7,19 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * Struktur für die Nachrichtenelemente die in einer NoFNachricht verwendet werde können.
+ * Struktur für die Nachrichtenelemente die in einer AnFNachricht verwendet werde können.
  */
 public abstract class MessagePart {
 
     protected Resources res;
 
-    protected JSONObject nofObject;
+    protected JSONObject anfObject;
     protected Context context;
 
-    public MessagePart(JSONObject nofObject, Context context) {
+    public MessagePart(JSONObject anfObject, Context context) {
         this.context = context;
         res = context.getResources();
-        this.nofObject = nofObject;
+        this.anfObject = anfObject;
     }
 
     protected String getJSONString(int key, JSONObject jsonObject) {
@@ -60,8 +60,8 @@ public abstract class MessagePart {
         return null;
     }
 
-    public JSONObject getNofJSONObject() {
-        return nofObject;
+    public JSONObject getAnFJSONObject() {
+        return anfObject;
     }
 
     public abstract boolean isValid();

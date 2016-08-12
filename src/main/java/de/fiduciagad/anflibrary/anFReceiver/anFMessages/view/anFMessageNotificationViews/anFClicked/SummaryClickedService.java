@@ -3,7 +3,7 @@ package de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageNotifica
 import android.app.IntentService;
 import android.content.Intent;
 
-import de.fiduciagad.anflibrary.anFConnector.NoFConnector;
+import de.fiduciagad.anflibrary.anFConnector.AnFConnector;
 import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFMessageHandling.MessageDAO;
 import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFMessageHandling.MessageDB;
 import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFServiceHandling.ServiceDB;
@@ -25,7 +25,7 @@ public class SummaryClickedService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        Intent summaryAcitivity = NoFConnector.getSummaryActivity(this);
+        Intent summaryAcitivity = AnFConnector.getSummaryActivity(this);
 
         setAllRead();
         startActivity(summaryAcitivity.addFlags(intent.FLAG_ACTIVITY_NEW_TASK));
@@ -34,7 +34,7 @@ public class SummaryClickedService extends IntentService {
     private void setAllRead() {
         MessageDB lists = new MessageDB(this);
         ServiceDB serviceDB = new ServiceDB(this);
-        if (!NoFConnector.isSeperateByService()) {
+        if (!AnFConnector.isSeperateByService()) {
             for (String service : serviceDB.getServiceList()) {
                 for (MessageDAO messageMessageDAO : lists.getUnreadMessages(service)) {
                     messageMessageDAO.messageRead();

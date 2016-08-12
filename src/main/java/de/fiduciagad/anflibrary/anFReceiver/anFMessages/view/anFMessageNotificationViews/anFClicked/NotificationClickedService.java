@@ -7,7 +7,7 @@ import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.MessagePart
 import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFMessageHandling.MessageDB;
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.ViewConstants;
 import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFMessageHandling.MessageDAO;
-import de.fiduciagad.anflibrary.anFConnector.NoFConnector;
+import de.fiduciagad.anflibrary.anFConnector.AnFConnector;
 import de.fiduciagad.anflibrary.anFConnector.anFInterfaces.MessageBuilderInterface;
 
 /**
@@ -30,7 +30,7 @@ public class NotificationClickedService extends IntentService {
 
         MessageDB messageDB = new MessageDB(this);
         String rawMessage = messageDB.getRawMessage(id);
-        MessageBuilderInterface messageBuilderInterface = NoFConnector.getMessageActivity();
+        MessageBuilderInterface messageBuilderInterface = AnFConnector.getMessageActivity();
 
         MessageDAO message = new MessageDAO(this);
         message.setId(id);

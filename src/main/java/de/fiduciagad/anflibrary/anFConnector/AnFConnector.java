@@ -17,7 +17,7 @@ import de.fiduciagad.anflibrary.anFConnector.anFInterfaces.ReceiverInterface;
  * This class is used to link behavior of the framework with an own application
 
  */
-public class NoFConnector {
+public class AnFConnector {
     private static ReceiverInterface receiver;
 
     /**
@@ -123,7 +123,7 @@ public class NoFConnector {
      * @param context The current application context
      * @return The current Instance of the AnFImagesInterface
      */
-    public static AnFImagesInterface getNoFImages(Context context) {
+    public static AnFImagesInterface getAnFImages(Context context) {
         if (anFImagesInterface == null) {
             return new AnFImages(context);
         }
@@ -135,7 +135,7 @@ public class NoFConnector {
      *
      * @param images A AnFImagesInterface to use own Icons for the Notifications
      */
-    public static void setNoFImagesInterface(AnFImagesInterface images) {
+    public static void setAnFImagesInterface(AnFImagesInterface images) {
         anFImagesInterface = images;
     }
 

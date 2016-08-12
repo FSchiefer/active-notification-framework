@@ -10,8 +10,8 @@ import org.json.JSONObject;
  */
 public class TimeDependency extends MessagePart {
 
-    public TimeDependency(JSONObject nofObject, Context context) {
-        super(nofObject, context);
+    public TimeDependency(JSONObject anfObject, Context context) {
+        super(anfObject, context);
     }
 
     @Override

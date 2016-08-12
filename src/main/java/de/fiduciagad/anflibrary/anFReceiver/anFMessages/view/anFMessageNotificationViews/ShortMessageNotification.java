@@ -3,7 +3,7 @@ package de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageNotifica
 import android.app.Notification;
 import android.content.Context;
 
-import de.fiduciagad.anflibrary.anFConnector.NoFConnector;
+import de.fiduciagad.anflibrary.anFConnector.AnFConnector;
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextValue.ContextAnswer;
 
 /**
@@ -25,10 +25,10 @@ public class ShortMessageNotification extends AnFNotificationCompat {
     public ShortMessageNotification(Context context, int id, ContextAnswer answer) {
         super(context, id, answer);
 
-        this.setSmallIcon(NoFConnector.getNoFImages(context).getSmallIcon(service, NotificationType.SHORT));
+        this.setSmallIcon(AnFConnector.getAnFImages(context).getSmallIcon(service, NotificationType.SHORT));
 
-        if (NoFConnector.isSeperateByService()) {
-            this.setGroup(nofMessage.getService() + "_" + NotificationType.SHORT.toString());
+        if (AnFConnector.isSeperateByService()) {
+            this.setGroup(anfMessage.getService() + "_" + NotificationType.SHORT.toString());
         } else {
             this.setGroup(NotificationType.SHORT.toString());
         }

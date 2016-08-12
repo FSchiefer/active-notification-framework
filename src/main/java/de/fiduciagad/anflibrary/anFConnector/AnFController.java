@@ -5,37 +5,37 @@ import android.content.Intent;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import de.fiduciagad.anflibrary.anFMessageCreator.CreateNoFMessage;
+import de.fiduciagad.anflibrary.anFMessageCreator.CreateAnFMessage;
 import de.fiduciagad.anflibrary.anFReceiver.anFHandling.anFNotificationControl.GeofenceHandling;
 import de.fiduciagad.anflibrary.anFReceiver.anFHandling.anFNotificationTrigger.InstantMessageTriggerService;
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.AnFMessage;
 import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFMessageHandling.MessageDAO;
 import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFMessageHandling.MessageDB;
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * NoF-Messages which should be used by the Framework need to be given to the functions
+ * AnF-Messages which should be used by the Framework need to be given to the functions
  * in this class
  */
-public class NoFController {
+public class AnFController {
 
     private Activity mActivity;
 
     private MessageDB messageDB;
 
-    private static final String CLASS_NAME = NoFController.class.getSimpleName();
+    private static final String CLASS_NAME = AnFController.class.getSimpleName();
 
-    public NoFController(Activity mActivity) {
+    public AnFController(Activity mActivity) {
         this.mActivity = mActivity;
         PreferenceManager.setDefaultValues(mActivity, R.xml.contextpreferences, false);
         messageDB = new MessageDB(mActivity);
     }
 
     /**
-     * @param payload The NoF-message as string for the conversion in an JSON-Object
+     * @param payload The AnF-message as string for the conversion in an JSON-Object
      * @return Boolean which says if the given message is valid
      */
     public boolean handleMessage(String payload) {
@@ -53,16 +53,16 @@ public class NoFController {
     }
 
     /**
-     * @param anFMessage A NoF-message which is created with the CreateNoFMessage class
+     * @param anFMessage A AnF-message which is created with the CreateAnFMessage class
      * @return Boolean which says if the given message is valid
      */
-    public boolean handleMessage(CreateNoFMessage anFMessage) {
+    public boolean handleMessage(CreateAnFMessage anFMessage) {
 
         return handleMessage(anFMessage.getJSONObject());
     }
 
     /**
-     * @param message The NoF-Message in a Boolean representation
+     * @param message The AnF-Message in a JSONObject representation
      * @return Boolean which says if the given message is valid
      */
     public boolean handleMessage(JSONObject message) {
@@ -91,7 +91,7 @@ public class NoFController {
 
             return true;
         } else {
-            Log.e(CLASS_NAME, "Payload is no NoF Object");
+            Log.e(CLASS_NAME, "Payload is no AnF Object");
         }
 
         return false;

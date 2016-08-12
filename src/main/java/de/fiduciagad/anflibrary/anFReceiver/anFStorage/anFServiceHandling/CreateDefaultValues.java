@@ -6,7 +6,7 @@ import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 
 /**
  * Created by Felix Schiefer on 06.01.2016.

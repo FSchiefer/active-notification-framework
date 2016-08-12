@@ -16,7 +16,7 @@ import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.PositionDep
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.TimeDependency;
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageNotificationViews.AnFNotificationCompat;
 import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFServiceHandling.ServiceDB;
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +34,7 @@ public abstract class AnFMessage {
     protected static Resources res;
     protected Context context;
 
-    protected JSONObject nofPayload;
+    protected JSONObject anfPayload;
     protected String service;
     protected boolean trigger;
     protected boolean urgent;
@@ -52,26 +52,26 @@ public abstract class AnFMessage {
 
     /**
      * @param context
-     * @param nofPayload
+     * @param anfPayload
      * @param anFText    Konstruktor für das Erstellen der Typunabhängigen Nachrichtenelemente
      */
-    protected AnFMessage(Context context, JSONObject nofPayload, AnFText anFText) {
+    protected AnFMessage(Context context, JSONObject anfPayload, AnFText anFText) {
         messagePartList = new ArrayList<>();
-        generateNoFBody(context, anFText, nofPayload);
+        generateAnFBody(context, anFText, anfPayload);
     }
 
-    protected AnFMessage(Context context, JSONObject nofPayload, AnFText anFText, PositionDependency positionDependency) {
+    protected AnFMessage(Context context, JSONObject anfPayload, AnFText anFText, PositionDependency positionDependency) {
         messagePartList = new ArrayList<>();
-        generateNoFBody(context, anFText, nofPayload);
+        generateAnFBody(context, anFText, anfPayload);
 
         this.positionDependency = positionDependency;
         messagePartList.add(positionDependency);
         setTrigger();
     }
 
-    private void generateNoFBody(Context context, AnFText anFText, JSONObject nofPayload) {
+    private void generateAnFBody(Context context, AnFText anFText, JSONObject anfPayload) {
         this.context = context;
-        this.nofPayload = nofPayload;
+        this.anfPayload = anfPayload;
         this.anFText = anFText;
         messagePartList.add(anFText);
         createMessageParts();
@@ -87,12 +87,12 @@ public abstract class AnFMessage {
     private void initiateMessageParts() {
         if (messageParts == null) {
             messageParts = new MessageParts(context);
-            messageParts.generateMessageParts(nofPayload);
+            messageParts.generateMessageParts(anfPayload);
         }
     }
 
     /**
-     * Erstellt die NoF Message mit allen relevanten Objekten, sodass ein einfacher Zugriff möglich
+     * Erstellt die AnF Message mit allen relevanten Objekten, sodass ein einfacher Zugriff möglich
      * ist
      */
     private void createMessageParts() {
@@ -117,16 +117,16 @@ public abstract class AnFMessage {
 
     /**
      * @param context
-     * @param nofPayload
+     * @param anfPayload
      * @return Alternativer Konstruktor, wenn kein JSONObjekt, sondern ein String mit der Nachricht
      * übergeben wird.
      */
-    public static AnFMessage getMessage(Context context, String nofPayload) {
+    public static AnFMessage getMessage(Context context, String anfPayload) {
         res = context.getResources();
 
         AnFMessage m = null;
         try {
-            JSONObject payload = new JSONObject(nofPayload);
+            JSONObject payload = new JSONObject(anfPayload);
             m = getMessage(context, payload);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -138,26 +138,26 @@ public abstract class AnFMessage {
     public static AnFMessage getMessage(Context context, MessageParts messageParts) {
         if (messageParts.getPositionDependency() != null) {
             if (messageParts.getPositionDependency().isTrigger()) {
-                return new LocationBasedAnFMessage(context, messageParts.getNoFMessage(), messageParts.getAnFText(), messageParts.getPositionDependency());
+                return new LocationBasedAnFMessage(context, messageParts.getAnFMessage(), messageParts.getAnFText(), messageParts.getPositionDependency());
             }
-            return new ShortAnFMessage(context, messageParts.getNoFMessage(), messageParts.getAnFText(), messageParts.getPositionDependency());
+            return new ShortAnFMessage(context, messageParts.getAnFMessage(), messageParts.getAnFText(), messageParts.getPositionDependency());
         }
 
-        return new ShortAnFMessage(context, messageParts.getNoFMessage(), messageParts.getAnFText());
+        return new ShortAnFMessage(context, messageParts.getAnFMessage(), messageParts.getAnFText());
     }
 
     /**
      * @param context
-     * @param nofPayload
+     * @param anfPayload
      * @return Liefert die korrekte instanz der AnFMessage zurück oder null wenn die Nachricht nicht valide ist
      */
-    public static AnFMessage getMessage(Context context, JSONObject nofPayload) {
+    public static AnFMessage getMessage(Context context, JSONObject anfPayload) {
         res = context.getResources();
         AnFMessage m = null;
 
         try {
-            String service = nofPayload.getString(res.getString(R.string.serviceType));
-            JSONObject mofTextJson = nofPayload.getJSONObject(res.getString(R.string.anfText));
+            String service = anfPayload.getString(res.getString(R.string.serviceType));
+            JSONObject mofTextJson = anfPayload.getJSONObject(res.getString(R.string.anfText));
             AnFText anFTextStatic = new AnFText(mofTextJson, context);
             SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(context);
 
@@ -176,7 +176,7 @@ public abstract class AnFMessage {
                 return null;
             }
 
-            Iterator iterator = nofPayload.keys();
+            Iterator iterator = anfPayload.keys();
             String key = null;
             JSONObject jsonObject;
 
@@ -185,21 +185,21 @@ public abstract class AnFMessage {
             while (iterator.hasNext()) {
                 key = (String) iterator.next();
                 if (key.equals(res.getString(R.string.positionDependency))) {
-                    jsonObject = nofPayload.getJSONObject(key);
+                    jsonObject = anfPayload.getJSONObject(key);
                     PositionDependency positionDependency = new PositionDependency(jsonObject, context);
                     if (!positionDependency.isValid()) {
                         return null;
                     }
                     if (positionDependency.isTrigger()) {
-                        m = new LocationBasedAnFMessage(context, nofPayload, anFTextStatic, positionDependency);
+                        m = new LocationBasedAnFMessage(context, anfPayload, anFTextStatic, positionDependency);
                     } else {
-                        m = new ShortAnFMessage(context, nofPayload, anFTextStatic, positionDependency);
+                        m = new ShortAnFMessage(context, anfPayload, anFTextStatic, positionDependency);
                     }
                 }
             }
 
             if (m == null) {
-                m = new ShortAnFMessage(context, nofPayload, anFTextStatic);
+                m = new ShortAnFMessage(context, anfPayload, anFTextStatic);
             }
 
             if (m.isValid())
@@ -254,7 +254,7 @@ public abstract class AnFMessage {
     }
 
     /**
-     * @return Liefert die über eine Nof Message mitgegebenen Aktionen zurück
+     * @return Liefert die über eine AnF Message mitgegebenen Aktionen zurück
      */
     public ActionAnswers getAnswers() {
         if (answers != null) {
@@ -266,7 +266,7 @@ public abstract class AnFMessage {
     }
 
     /**
-     * @return Liefert die über eine Nof Message mitgegebeen Zusatzinformationen zurück
+     * @return Liefert die über eine AnF Message mitgegebeen Zusatzinformationen zurück
      */
     public PaymentInformations getPaymentInformations() {
         if (paymentInformations != null) {
@@ -293,8 +293,8 @@ public abstract class AnFMessage {
                 '}';
     }
 
-    public JSONObject getNofPayload() {
-        return nofPayload;
+    public JSONObject getAnfPayload() {
+        return anfPayload;
     }
 
     /**

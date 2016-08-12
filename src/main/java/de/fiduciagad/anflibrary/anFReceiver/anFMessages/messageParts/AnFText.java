@@ -2,7 +2,7 @@ package de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts;
 
 import android.content.Context;
 
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 
 import org.json.JSONObject;
 
@@ -17,16 +17,16 @@ public class AnFText extends MessagePart {
     private Boolean urgency;
     private Boolean confidential;
 
-    public AnFText(JSONObject nofObject, Context context) {
-        super(nofObject, context);
+    public AnFText(JSONObject anfObject, Context context) {
+        super(anfObject, context);
         confidential = false;
         urgency = false;
 
-        title = getJSONString(R.string.mofTitle, nofObject);
-        shortMessage = getJSONString(R.string.mofShortMessage, nofObject);
- /*       message = getJSONString(R.string.anfMessage, nofObject);*/
-        urgency = getJSONBoolean(R.string.urgency_value, nofObject);
-        confidential = getJSONBoolean(R.string.confidential_value, nofObject);
+        title = getJSONString(R.string.mofTitle, anfObject);
+        shortMessage = getJSONString(R.string.mofShortMessage, anfObject);
+ /*       message = getJSONString(R.string.anfMessage, anfObject);*/
+        urgency = getJSONBoolean(R.string.urgency_value, anfObject);
+        confidential = getJSONBoolean(R.string.confidential_value, anfObject);
         if (message == null) {
             message = shortMessage;
         }

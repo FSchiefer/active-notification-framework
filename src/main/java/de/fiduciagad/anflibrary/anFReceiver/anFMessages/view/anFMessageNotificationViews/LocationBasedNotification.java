@@ -3,7 +3,7 @@ package de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageNotifica
 import android.content.Context;
 import android.util.Log;
 
-import de.fiduciagad.anflibrary.anFConnector.NoFConnector;
+import de.fiduciagad.anflibrary.anFConnector.AnFConnector;
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextValue.ContextAnswer;
 
 /**
@@ -14,7 +14,7 @@ public class LocationBasedNotification extends AnFNotificationCompat {
 
     /**
      * @param context
-     * @param nofMessage
+     * @param anfMessage
      * @inheritDoc
      */
     public LocationBasedNotification(Context context, int id, ContextAnswer answer) {
@@ -22,10 +22,10 @@ public class LocationBasedNotification extends AnFNotificationCompat {
 
         Log.i(CLASS_NAME, "Service= " + service);
 
-        this.setSmallIcon(NoFConnector.getNoFImages(context).getSmallIcon(service, NotificationType.LOCATION));
+        this.setSmallIcon(AnFConnector.getAnFImages(context).getSmallIcon(service, NotificationType.LOCATION));
         this.setAutoCancel(false);
-        if (NoFConnector.isSeperateByService()) {
-            this.setGroup(nofMessage.getService() + "_" + NotificationType.LOCATION.toString());
+        if (AnFConnector.isSeperateByService()) {
+            this.setGroup(anfMessage.getService() + "_" + NotificationType.LOCATION.toString());
         } else {
             this.setGroup(NotificationType.LOCATION.toString());
         }

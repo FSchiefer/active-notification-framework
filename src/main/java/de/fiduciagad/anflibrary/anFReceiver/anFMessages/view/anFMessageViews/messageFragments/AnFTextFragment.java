@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.AnFText;
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

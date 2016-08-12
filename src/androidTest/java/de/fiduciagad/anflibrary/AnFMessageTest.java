@@ -3,9 +3,9 @@ package de.fiduciagad.anflibrary;
 import android.content.Context;
 import android.test.ActivityTestCase;
 
-import de.fiduciagad.anflibrary.anFConnector.NoFConfiguration;
+import de.fiduciagad.anflibrary.anFConnector.AnFConfiguration;
+import de.fiduciagad.anflibrary.anFMessageCreator.CreateAnFMessage;
 import de.fiduciagad.anflibrary.anFMessageCreator.CreateAnFTextValues;
-import de.fiduciagad.anflibrary.anFMessageCreator.CreateNoFMessage;
 import de.fiduciagad.anflibrary.anFMessageCreator.CreatePositionDependencyValues;
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextValue.ContextAnswer;
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.AnFMessage;
@@ -29,10 +29,10 @@ public class AnFMessageTest extends ActivityTestCase {
     }
 
     public void testPositionMessageSender() {
-        NoFConfiguration noFConfiguration = new NoFConfiguration(context);
+        AnFConfiguration anFConfiguration = new AnFConfiguration(context);
         JSONObject jsonObject = sendAldiMessage().getJSONObject();
         AnFMessage anFMessage = AnFMessage.getMessage(context, jsonObject);
-        if (noFConfiguration.addService("Aldi")) {
+        if (anFConfiguration.addService("Aldi")) {
             anFMessage = AnFMessage.getMessage(context, jsonObject);
             assertEquals(true, anFMessage.isValid());
         } else {
@@ -41,10 +41,10 @@ public class AnFMessageTest extends ActivityTestCase {
     }
 
     public void testInvalidPositionMessageSender() {
-        NoFConfiguration noFConfiguration = new NoFConfiguration(context);
+        AnFConfiguration anFConfiguration = new AnFConfiguration(context);
         JSONObject jsonObject = sendInvalidAldiMessage().getJSONObject();
         AnFMessage anFMessage = AnFMessage.getMessage(context, jsonObject);
-        if (noFConfiguration.addService("Aldi")) {
+        if (anFConfiguration.addService("Aldi")) {
             anFMessage = AnFMessage.getMessage(context, jsonObject);
             assertEquals(null, anFMessage);
         } else {
@@ -52,11 +52,11 @@ public class AnFMessageTest extends ActivityTestCase {
         }
     }
 
-    public void testNoFMessageSender() {
-        NoFConfiguration noFConfiguration = new NoFConfiguration(context);
+    public void testAnFMessageSender() {
+        AnFConfiguration anFConfiguration = new AnFConfiguration(context);
         JSONObject jsonObject = sendRealMessage().getJSONObject();
         AnFMessage anFMessage = AnFMessage.getMessage(context, jsonObject);
-        if (noFConfiguration.addService("real")) {
+        if (anFConfiguration.addService("real")) {
             anFMessage = AnFMessage.getMessage(context, jsonObject);
             assertEquals(true, anFMessage.isValid());
         } else {
@@ -66,23 +66,23 @@ public class AnFMessageTest extends ActivityTestCase {
 
     public void testNoService() {
 
-        CreateNoFMessage noFMessage = new CreateNoFMessage(context);
-        noFMessage.setService("Imaginaer");
-        noFMessage.setMofText(createMoFTextValues("imaginaer"));
-        JSONObject jsonObject = noFMessage.getJSONObject();
+        CreateAnFMessage anFMessage = new CreateAnFMessage(context);
+        anFMessage.setService("Imaginaer");
+        anFMessage.setMofText(createAnFTextValues("imaginaer"));
+        JSONObject jsonObject = anFMessage.getJSONObject();
         AnFMessage message = AnFMessage.getMessage(context, jsonObject);
         assertEquals(null, message);
     }
 
     public void testInvalidMessage() {
 
-        NoFConfiguration noFConfiguration = new NoFConfiguration(context);
-        CreateNoFMessage createNoFMessage = new CreateNoFMessage(context);
-        createNoFMessage.setService("real");
-        JSONObject jsonObject = createNoFMessage.getJSONObject();
+        AnFConfiguration anFConfiguration = new AnFConfiguration(context);
+        CreateAnFMessage createAnFMessage = new CreateAnFMessage(context);
+        createAnFMessage.setService("real");
+        JSONObject jsonObject = createAnFMessage.getJSONObject();
         AnFMessage anFMessage = AnFMessage.getMessage(context, jsonObject);
 
-        if (noFConfiguration.addService("real")) {
+        if (anFConfiguration.addService("real")) {
             anFMessage = AnFMessage.getMessage(context, jsonObject);
             assertEquals(null, anFMessage);
         } else {
@@ -90,10 +90,10 @@ public class AnFMessageTest extends ActivityTestCase {
         }
     }
 
-    private CreateNoFMessage sendAldiMessage() {
-        CreateNoFMessage noFMessage = new CreateNoFMessage(context);
-        noFMessage.setService("Aldi");
-        noFMessage.setMofText(createMoFTextValues("Aldi"));
+    private CreateAnFMessage sendAldiMessage() {
+        CreateAnFMessage anFMessage = new CreateAnFMessage(context);
+        anFMessage.setService("Aldi");
+        anFMessage.setMofText(createAnFTextValues("Aldi"));
         CreatePositionDependencyValues positionDependencyValues = new CreatePositionDependencyValues(context);
         positionDependencyValues.setTrigger("1000");
         positionDependencyValues.addPlace("Killisfeldstraße 46", "76227", "Aldi");
@@ -103,14 +103,14 @@ public class AnFMessageTest extends ActivityTestCase {
         positionDependencyValues.addPlace("Freiburger Straße 15", "77652", "Aldi");
         positionDependencyValues.addPlace("Heinrich-Hertz-Straße 3", "77656 ", "Aldi");
         positionDependencyValues.addPlace("Carl Blos Straße 2", "77654", "Aldi");
-        noFMessage.setLocation(positionDependencyValues);
-        return noFMessage;
+        anFMessage.setLocation(positionDependencyValues);
+        return anFMessage;
     }
 
-    private CreateNoFMessage sendInvalidAldiMessage() {
-        CreateNoFMessage noFMessage = new CreateNoFMessage(context);
-        noFMessage.setService("Aldi");
-        noFMessage.setMofText(createMoFTextValues("Aldi"));
+    private CreateAnFMessage sendInvalidAldiMessage() {
+        CreateAnFMessage anFMessage = new CreateAnFMessage(context);
+        anFMessage.setService("Aldi");
+        anFMessage.setMofText(createAnFTextValues("Aldi"));
         CreatePositionDependencyValues positionDependencyValues = new CreatePositionDependencyValues(context);
         positionDependencyValues.setTrigger("1000");
         positionDependencyValues.addPlace("Killisfeldstraße 46", "76227", "Aldi");
@@ -120,23 +120,23 @@ public class AnFMessageTest extends ActivityTestCase {
         positionDependencyValues.addPlace("Freiburger Straße 15", "77652", "Aldi");
         positionDependencyValues.addPlace("Heinrich-Hertz-Stdfaasdasdaße 3", "76 ", "Aldi");
         positionDependencyValues.addPlace("Carl Blos Straße 2", "77654", "Aldi");
-        noFMessage.setLocation(positionDependencyValues);
-        return noFMessage;
+        anFMessage.setLocation(positionDependencyValues);
+        return anFMessage;
     }
 
-    private CreateNoFMessage sendRealMessage() {
-        CreateNoFMessage noFMessage = new CreateNoFMessage(context);
-        noFMessage.setService("real");
-        noFMessage.setMofText(createMoFTextValues("real"));
-        return noFMessage;
+    private CreateAnFMessage sendRealMessage() {
+        CreateAnFMessage anFMessage = new CreateAnFMessage(context);
+        anFMessage.setService("real");
+        anFMessage.setMofText(createAnFTextValues("real"));
+        return anFMessage;
     }
 
-    private CreateAnFTextValues createMoFTextValues(String shopName) {
-        CreateAnFTextValues moFTextValues = new CreateAnFTextValues(context);
-        moFTextValues.setConfidential(false);
-        moFTextValues.setUrgency(false);
-        moFTextValues.setTitle(shopName + " Angebote");
-        moFTextValues.setShortMessage("Angebote von " + shopName + " abrufen");
-        return moFTextValues;
+    private CreateAnFTextValues createAnFTextValues(String shopName) {
+        CreateAnFTextValues anFTextValues = new CreateAnFTextValues(context);
+        anFTextValues.setConfidential(false);
+        anFTextValues.setUrgency(false);
+        anFTextValues.setTitle(shopName + " Angebote");
+        anFTextValues.setShortMessage("Angebote von " + shopName + " abrufen");
+        return anFTextValues;
     }
 }

@@ -7,7 +7,7 @@ import com.google.android.gms.location.DetectedActivity;
  */
 public class Constants {
 
-    public static final String PACKAGE_NAME = "de.fiduciagad.noflibrary";
+    public static final String PACKAGE_NAME = "de.fiduciagad.anflibrary";
 
     public static final String ACTIVITY_PACKAGE_NAME = PACKAGE_NAME + ".ActivityRecognition";
 

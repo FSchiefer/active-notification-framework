@@ -12,7 +12,7 @@ import android.util.Log;
 import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.AllConfidentialSetting;
 import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.ServiceAllowedSetting;
 import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFServiceHandling.ServiceDB;
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.AllUrgentSetting;
 import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.ConfidentialSetting;
 import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.UrgencySetting;

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.location.Address;
 import android.util.Log;
 
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,20 +48,20 @@ public class PositionDependency extends MessagePart {
 
     private boolean navigation;
 
-    public PositionDependency(JSONObject nofObject, Context context) {
-        super(nofObject, context);
+    public PositionDependency(JSONObject anfObject, Context context) {
+        super(anfObject, context);
 
         placeList = new ArrayList<>();
-/*        position = getJSONObject(R.string.position, nofObject);*/
-        positionTrigger = getJSONObject(R.string.positionTrigger, nofObject);
+/*        position = getJSONObject(R.string.position, anfObject);*/
+        positionTrigger = getJSONObject(R.string.positionTrigger, anfObject);
 
         // Triggerdistanz
         distance = getJSONString(R.string.meter, positionTrigger);
 
-        navigation = getJSONBoolean(R.string.navigation, nofObject);
+        navigation = getJSONBoolean(R.string.navigation, anfObject);
 
-        if (getJSONString(R.string.duration, nofObject) != null) {
-            duration = Integer.parseInt(getJSONString(R.string.duration, nofObject));
+        if (getJSONString(R.string.duration, anfObject) != null) {
+            duration = Integer.parseInt(getJSONString(R.string.duration, anfObject));
         } else {
             duration = -1;
         }
@@ -72,7 +72,7 @@ public class PositionDependency extends MessagePart {
         }
 
         // Name des Ortes
-        places = getJSONArray(R.string.place, nofObject);
+        places = getJSONArray(R.string.place, anfObject);
 
         for (int i = 0; i < places.length(); i++) {
             try {

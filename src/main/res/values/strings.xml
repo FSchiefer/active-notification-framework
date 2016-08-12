@@ -14,7 +14,7 @@
     <string name="work_key">workplace</string>
     <string name="work_default"> </string>
 
-    <string name="settingName">nofpreferences</string>
+    <string name="settingName">anfpreferences</string>
 
     <string name="usePosition">Ortsinformationen</string>
     <string name="usePositionMessage">Zugriff auf Ortsinformationen für Nachrichten erlauben? Wenn der Zugriff verboten ist wird immer davon ausgegangen,dass man weder daheim noch auf der Arbeit ist</string>

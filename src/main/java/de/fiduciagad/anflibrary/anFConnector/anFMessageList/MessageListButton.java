@@ -17,7 +17,7 @@ public class MessageListButton extends Button {
 
     public MessageListButton(Context context) {
         super(context);
-        this.setText("NofMessageList");
+        this.setText("AnfMessageList");
         this.context = context;
         this.setOnClickListener(new OnClickListener() {
             @Override

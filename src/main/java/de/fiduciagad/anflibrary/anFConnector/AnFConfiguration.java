@@ -6,19 +6,19 @@ import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
 import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFServiceHandling.ServiceDB;
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 
 /**
  * This class is used to configure the Framework.
  * Here the default settings can be saved for home and workplace of a user and the services are added to the database
  */
-public class NoFConfiguration {
+public class AnFConfiguration {
     private Context context;
     private ServiceDB serviceDB;
     private Resources resources;
     private SharedPreferences preferences;
 
-    public NoFConfiguration(Context context) {
+    public AnFConfiguration(Context context) {
         this.context = context;
         resources = context.getResources();
         serviceDB = new ServiceDB(context);
@@ -52,6 +52,8 @@ public class NoFConfiguration {
     }
 
     /**
+     * With this function a service that is used to identify messages that are valid for the framework can be registered.
+     *
      * @param service Service which is is stored in the service db for further use in the framework
      */
     public boolean addService(String service) {

@@ -5,7 +5,7 @@ import android.content.res.Resources;
 import android.preference.CheckBoxPreference;
 import android.util.AttributeSet;
 
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 
 /**
  * Created by Felix Schiefer on 06.01.2016.

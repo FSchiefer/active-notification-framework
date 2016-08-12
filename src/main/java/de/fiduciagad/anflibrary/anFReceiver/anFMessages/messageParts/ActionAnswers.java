@@ -2,7 +2,7 @@ package de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts;
 
 import android.content.Context;
 
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,10 +22,10 @@ public class ActionAnswers extends MessagePart {
     private String name;
     private String number;
 
-    public ActionAnswers(JSONObject nofObject, Context context) {
-        super(nofObject, context);
+    public ActionAnswers(JSONObject anfObject, Context context) {
+        super(anfObject, context);
 
-        voiceAnswer = getJSONBoolean(R.string.voiceAnswer, nofObject);
+        voiceAnswer = getJSONBoolean(R.string.voiceAnswer, anfObject);
 
         getQuickanswerStringArray();
         getCall();
@@ -33,7 +33,7 @@ public class ActionAnswers extends MessagePart {
 
     private void getQuickanswerStringArray() {
         try {
-            JSONArray jsonAnswer = getJSONArray(R.string.quickAnswer, nofObject);
+            JSONArray jsonAnswer = getJSONArray(R.string.quickAnswer, anfObject);
             quickAnswer = new ArrayList<String>();
             if (jsonAnswer != null)
                 for (int i = 0; i < jsonAnswer.length(); i++) {
@@ -45,8 +45,8 @@ public class ActionAnswers extends MessagePart {
     }
 
     private void getCall() {
-        name = getJSONString(R.string.callName, nofObject);
-        number = getJSONString(R.string.callNumber, nofObject);
+        name = getJSONString(R.string.callName, anfObject);
+        number = getJSONString(R.string.callNumber, anfObject);
     }
 
     public ArrayList<String> getQuickAnswer() {

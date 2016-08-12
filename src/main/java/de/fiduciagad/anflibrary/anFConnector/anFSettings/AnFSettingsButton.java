@@ -19,7 +19,7 @@ public class AnFSettingsButton extends Button {
 
     public AnFSettingsButton(Context context) {
         super(context);
-        this.setText("NofSettings");
+        this.setText("AnFSettings");
         this.context = context;
         this.setOnClickListener(new OnClickListener() {
             @Override

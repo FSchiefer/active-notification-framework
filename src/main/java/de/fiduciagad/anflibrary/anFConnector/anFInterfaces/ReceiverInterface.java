@@ -6,8 +6,10 @@ package de.fiduciagad.anflibrary.anFConnector.anFInterfaces;
 public interface ReceiverInterface {
 
     /**
+     * The method is used to receive textanswers directly from notifications with short answers
+     *
      * @param message Message given as String
      * @param ID      The ID of the message in the database
      */
-    public void receiveMessage(String message, int ID);
+    void receiveMessage(String message, int ID);
 }

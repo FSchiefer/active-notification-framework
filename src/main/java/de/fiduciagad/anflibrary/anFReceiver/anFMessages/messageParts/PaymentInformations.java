@@ -2,7 +2,7 @@ package de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts;
 
 import android.content.Context;
 
-import de.fiduciagad.noflibrary.R;
+import de.fiduciagad.anflibrary.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,15 +29,15 @@ public class PaymentInformations extends MessagePart {
     private String name;
     private List<String> currencyAvailable;
 
-    public PaymentInformations(JSONObject nofObject, Context context) {
-        super(nofObject, context);
+    public PaymentInformations(JSONObject anfObject, Context context) {
+        super(anfObject, context);
         fillPaymentInformations();
     }
 
     private void fillPaymentInformations() {
 
-        accountAction = getJSONObject(R.string.accountActions, nofObject);
-        paymentInformation = getJSONArray(R.string.paymentInformation, nofObject);
+        accountAction = getJSONObject(R.string.accountActions, anfObject);
+        paymentInformation = getJSONArray(R.string.paymentInformation, anfObject);
 
         fillCurrencyAvailable();
 

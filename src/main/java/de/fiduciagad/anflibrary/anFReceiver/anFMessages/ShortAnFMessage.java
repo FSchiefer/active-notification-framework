@@ -15,13 +15,13 @@ import org.json.JSONObject;
  */
 public class ShortAnFMessage extends AnFMessage {
 
-    public ShortAnFMessage(Context context, JSONObject nofPayload, AnFText anFText) {
-        super(context, nofPayload, anFText);
+    public ShortAnFMessage(Context context, JSONObject anfPayload, AnFText anFText) {
+        super(context, anfPayload, anFText);
         this.anFText = anFText;
     }
 
-    public ShortAnFMessage(Context context, JSONObject nofPayload, AnFText anFText, PositionDependency positionDependency) {
-        super(context, nofPayload, anFText, positionDependency);
+    public ShortAnFMessage(Context context, JSONObject anfPayload, AnFText anFText, PositionDependency positionDependency) {
+        super(context, anfPayload, anFText, positionDependency);
     }
 
     @Override

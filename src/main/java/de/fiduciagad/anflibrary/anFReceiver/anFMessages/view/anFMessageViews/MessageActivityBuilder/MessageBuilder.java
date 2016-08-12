@@ -28,7 +28,7 @@ public class MessageBuilder implements MessageBuilderInterface {
             activityToOpen = new Intent(context, LocationMessageActivity.class);
         }
 
-        activityToOpen.putExtra(ViewConstants.MESSAGE_EXTRA, messageParts.getNoFMessage().toString());
+        activityToOpen.putExtra(ViewConstants.MESSAGE_EXTRA, messageParts.getAnFMessage().toString());
 
         return activityToOpen;
     }

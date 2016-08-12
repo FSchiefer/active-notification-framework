@@ -14,8 +14,8 @@ import org.json.JSONObject;
  * Created by Felix Schiefer on 03.01.2016.
  */
 public class LocationBasedAnFMessage extends AnFMessage {
-    public LocationBasedAnFMessage(Context context, JSONObject nofPayload, AnFText anFText, PositionDependency positionDependency) {
-        super(context, nofPayload, anFText, positionDependency);
+    public LocationBasedAnFMessage(Context context, JSONObject anfPayload, AnFText anFText, PositionDependency positionDependency) {
+        super(context, anfPayload, anFText, positionDependency);
     }
 
     @Override

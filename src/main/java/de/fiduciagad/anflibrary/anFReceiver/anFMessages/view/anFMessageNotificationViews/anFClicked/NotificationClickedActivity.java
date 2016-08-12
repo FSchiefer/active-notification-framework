@@ -15,7 +15,7 @@ public class NotificationClickedActivity {
      * @param context
      * @param id
      * @return Das Intent wird an die Notification als Reply gesetzt. Sobald ein klick auf das Notification
-     * Ribbon durchgeführt wird. Über den NoFConnector wird die passende Instanz des MessageBuilderInterface
+     * Ribbon durchgeführt wird. Über den AnFConnector wird die passende Instanz des MessageBuilderInterface
      * genutzt.
      */
     public static Intent getMessageActivity(Context context, int id) {
