@@ -6,15 +6,11 @@ Notifications will get different signal depending on their importance and the co
 # Development status and further development
 This is the first Version. The current status of the code corresponds to the status immediately after the master's thesis. In the next iterations the project will be made more productive and easy to use. 
 
-# How to Use
+## How to Use
 
 This chapter will be added soon.
 
-# Contact
-
-This chapter will be added soon.
-
-# Contact
+## Contact
 
 This chapter will be added soon.
 
