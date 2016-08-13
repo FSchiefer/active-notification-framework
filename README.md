@@ -3,8 +3,12 @@ The active-notification-framework is a framework managing notifications on multi
 
 Notifications will get different signal depending on their importance and the context of the user. In the first versions the channels phone and watch are used to create a better user experience for a user with notifications.
 
-# Development status and further development
+## Development status and further development
 This is the first Version. The current status of the code corresponds to the status immediately after the master's thesis. In the next iterations the project will be made more productive and easy to use. 
+
+## Requierments
+
+This chapter will be added soon.
 
 ## How to Use
 

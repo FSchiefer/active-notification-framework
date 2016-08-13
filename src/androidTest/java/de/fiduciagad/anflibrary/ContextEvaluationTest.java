@@ -12,7 +12,7 @@ import com.google.android.gms.location.DetectedActivity;
 /**
  * Created by Felix Schiefer on 28.02.2016.
  */
-public class ContextTest extends AndroidTestCase {
+public class ContextEvaluationTest extends AndroidTestCase {
 
     private Context context;
     private ContextAnswer answer;
