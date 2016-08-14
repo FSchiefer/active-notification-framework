@@ -163,7 +163,7 @@ public class ContextResolver implements ActivityInterface, WatchDetectionInterfa
         smartWatchAvailable = false;
     }
 
-    // TODO: Schwellwert in Settings verfügbar machen oder über den Battery Manager beziehen
+    // TODO: Make threshold value availabe in the settings or get it by battery manager
     public boolean batteryStatusOk() {
         return (check.getBatteryCapacity() > 30 || check.getChargingBoolean());
     }

@@ -5,7 +5,6 @@
     tools:context="de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageViews.messageFragments.AnFTextFragment"
     android:id="@+id/mofTextFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

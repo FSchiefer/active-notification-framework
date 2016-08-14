@@ -24,11 +24,9 @@ import org.json.JSONObject;
  * create an instance of this fragment.
  */
 public class AnFTextFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String MOFTEXTPARAM = "param1";
+        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ANFTEXTPARAM = "param1";
 
-    // TODO: Rename and change types of parameters
     private AnFText anFText;
 
     private OnFragmentInteractionListener mListener;
@@ -40,11 +38,10 @@ public class AnFTextFragment extends Fragment {
      * @param param1 Parameter 1.
      * @return A new instance of fragment AnFTextFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static AnFTextFragment newInstance(String param1) {
         AnFTextFragment fragment = new AnFTextFragment();
         Bundle args = new Bundle();
-        args.putString(MOFTEXTPARAM, param1);
+        args.putString(ANFTEXTPARAM, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,7 +54,7 @@ public class AnFTextFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            getMofText(getArguments().getString(MOFTEXTPARAM));
+            getMofText(getArguments().getString(ANFTEXTPARAM));
         }
     }
 
@@ -85,7 +82,6 @@ public class AnFTextFragment extends Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -119,7 +115,6 @@ public class AnFTextFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument service and name
         public void onFragmentInteraction(Uri uri);
     }
 }

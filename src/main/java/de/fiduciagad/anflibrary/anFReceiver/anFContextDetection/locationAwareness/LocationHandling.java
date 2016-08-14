@@ -55,7 +55,7 @@ public class LocationHandling extends GoogleApiHandling {
                 mLocationRequest.setFastestInterval(2500);
                 mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-                // TODO: Abbruchbedingung nach X durchläufen einbauen um zu häufige wiederholungen zu vermeiden
+                // TODO: Implement termination condition after X runs to prevent to many repeats
                 LocationServices.FusedLocationApi.requestLocationUpdates(gClient, mLocationRequest, new LocationListener() {
                     @Override
                     public void onLocationChanged(Location location) {

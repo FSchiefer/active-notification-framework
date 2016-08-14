@@ -30,7 +30,7 @@ public class BluetoothDevices {
         Set<BluetoothDevice> pairedDevices = mBtAdapter.getBondedDevices();
         if (pairedDevices.size() > 0) {
 
-            // TODO Für mehr Geräte erweitern wie Android Auto
+            // TODO: Expand for other devices like cars
             for (BluetoothDevice device : pairedDevices) {
                 if (device.getBluetoothClass().getDeviceClass() == BluetoothClass.Device.WEARABLE_WRIST_WATCH) {
                     availableSmartwatches.add(device.getName());

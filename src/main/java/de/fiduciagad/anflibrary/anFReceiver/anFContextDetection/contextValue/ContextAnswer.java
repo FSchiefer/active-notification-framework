@@ -96,7 +96,7 @@ public class ContextAnswer {
      * @return Der Zustand an einem Ort der nicht zuhause oder auf der Arbeit ist.
      */
     private ContextLevelEnum otherContextLevel() {
-        // TODO: Erkennung für einen Fahrer einbauen, aktuell wird davon ausgegangen, dass man kein Fahrer ist
+        // TODO: Implement driver detection. At the moment everyone get's handled as passenger
         boolean driver = false;
 
         if (!appointmentCurrentlyRunning) {
@@ -106,7 +106,7 @@ public class ContextAnswer {
                 return ContextLevelEnum.S2;
             } else if (currentActivityValue == ActivityEnum.DRIVING) {
                 if (driver) {
-                    //TODO: Zustand S4 einbauen wenn ein Nutzer Fahrer ist und kein passendes Gerät hat
+                    //TODO: Implement state S4 person is driver with no fitting device
                     return ContextLevelEnum.S5;
                 }
             }
