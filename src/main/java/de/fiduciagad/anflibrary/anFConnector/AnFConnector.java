@@ -2,9 +2,11 @@ package de.fiduciagad.anflibrary.anFConnector;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import de.fiduciagad.anflibrary.anFConnector.anFInterfaces.AnFImagesInterface;
 import de.fiduciagad.anflibrary.anFConnector.anFMessageList.MessageListActivity;
+import de.fiduciagad.anflibrary.anFReceiver.anFPermissions.CheckPositionPermissions;
 import de.fiduciagad.anflibrary.anFReceiver.anFHandling.anFNotificationTrigger.InstantMessageTriggerService;
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageNotificationViews.images.AnFImages;
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageNotificationViews.receiver.AnFAnswerReceiver;
@@ -18,6 +20,7 @@ import de.fiduciagad.anflibrary.anFConnector.anFInterfaces.ReceiverInterface;
 
  */
 public class AnFConnector {
+    protected static final String TAG = AnFConnector.class.getSimpleName();
     private static ReceiverInterface receiver;
 
     /**
@@ -148,7 +151,11 @@ public class AnFConnector {
         Intent notificationController = new Intent(context, InstantMessageTriggerService.class);
         context.startService(notificationController);
 
+        CheckPositionPermissions positionPermissions = new CheckPositionPermissions();
+        if(positionPermissions.permissionAllowed(context)){
         Intent geofenceTrigger = new Intent(context, GeofenceTriggerService.class);
-        context.startService(geofenceTrigger);
+        context.startService(geofenceTrigger);} else {
+            Log.e(TAG,"No permission for location based messages granted. You need to provide permission for FINE_LOCATION");
+        }
     }
 }

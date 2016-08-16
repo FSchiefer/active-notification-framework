@@ -22,7 +22,14 @@ public class AppointmentCheck {
      * @return Liefert ein true zurück wenn ein Termin läuft und ein false wenn nicht.
      */
     public boolean checkCurrentAppointments() {
-        Cursor c = context.getContentResolver().query(CalendarContract.Events.CONTENT_URI, null, null, null, null);
+        Cursor c;
+
+        try {
+            c = context.getContentResolver().query(CalendarContract.Events.CONTENT_URI, null, null, null, null);
+        } catch(SecurityException securityException){
+            Log.e(TAG,"No permission for calendar given. No appointment set");
+            return false;
+        }
         if (c != null) {
             int indexID = c.getColumnIndex(CalendarContract.Events._ID);
             int indexTitle = c.getColumnIndex(CalendarContract.Events.TITLE);

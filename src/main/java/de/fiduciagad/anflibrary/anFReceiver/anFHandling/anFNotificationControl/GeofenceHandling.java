@@ -1,16 +1,15 @@
 package de.fiduciagad.anflibrary.anFReceiver.anFHandling.anFNotificationControl;
 
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
-import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.MessageParts;
-import de.fiduciagad.anflibrary.anFReceiver.anFHandling.anFNotificationTrigger.LocationMessageTriggerService;
-import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.PositionDependency;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -22,11 +21,16 @@ import com.google.android.gms.location.LocationServices;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import de.fiduciagad.anflibrary.anFReceiver.anFHandling.anFNotificationTrigger.LocationMessageTriggerService;
+import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.MessageParts;
+import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.PositionDependency;
+
 /**
  * Created by Felix Schiefer on 10.01.2016.
+ * This class is used to Handle the geofence message handling for messages with position dependencies
  */
 
-public class GeofenceHandling implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ResultCallback<Status> {
+public class GeofenceHandling implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ResultCallback<Status>, ActivityCompat.OnRequestPermissionsResultCallback {
 
     protected static final String TAG = GeofenceHandling.class.getSimpleName();
 
@@ -42,13 +46,10 @@ public class GeofenceHandling implements GoogleApiClient.ConnectionCallbacks, Go
 
     private SharedPreferences mSharedPreferences;
 
-    Context context;
+    private Context context;
 
     private static GeofenceHandling instance;
-    // Verhindere die Erzeugung des Objektes über andere Methoden
 
-    // Eine Zugriffsmethode auf Klassenebene, welches dir '''einmal''' ein konkretes
-    // Objekt erzeugt und dieses zurückliefert.
     public static GeofenceHandling getInstance(Context context) {
         if (GeofenceHandling.instance == null) {
             GeofenceHandling.instance = new GeofenceHandling(context);
@@ -57,7 +58,6 @@ public class GeofenceHandling implements GoogleApiClient.ConnectionCallbacks, Go
     }
 
     public GeofenceHandling(Context context) {
-
         this.context = context;
         mGeofenceList = new ArrayList<>();
         messageList = new ArrayList<>();
@@ -81,12 +81,11 @@ public class GeofenceHandling implements GoogleApiClient.ConnectionCallbacks, Go
             return;
         }
         try {
-            // Remove geofences.
-            LocationServices.GeofencingApi.removeGeofences(mGoogleApiClient,
-                    // This is the same pending intent that was used in addGeofences().
-                    getGeofencePendingIntent()).setResultCallback(this); // Result processed in onResult().
+
+            LocationServices.GeofencingApi.removeGeofences(mGoogleApiClient, getGeofencePendingIntent()).setResultCallback(this);
         } catch (SecurityException securityException) {
             // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
+            Log.e(TAG, "ACCESS_FINE_LOCATION permission needs to be granted for using geofences");
             logSecurityException(securityException);
         }
         mGoogleApiClient.disconnect();
@@ -118,12 +117,19 @@ public class GeofenceHandling implements GoogleApiClient.ConnectionCallbacks, Go
         return true;
     }
 
+    /**
+     * This method is used to add Geofences from the GeofenceList to the LocationServices.
+     * If no geofence is available in the list no service is started
+     */
     private void addGeofences() {
-        Log.i(TAG, "Numbers of Geofences" + mGeofenceList.size());
+        Log.i(TAG, "addGeofences() Numbers of Geofences" + mGeofenceList.size());
+
         try {
-            LocationServices.GeofencingApi.addGeofences(mGoogleApiClient, getGeofencingRequest(), getGeofencePendingIntent()).setResultCallback(this); // Result processed in onResult().
+            if(mGeofenceList.size()>0) {
+                LocationServices.GeofencingApi.addGeofences(mGoogleApiClient, getGeofencingRequest(), getGeofencePendingIntent()).setResultCallback(this);
+            }
         } catch (SecurityException securityException) {
-            logSecurityException(securityException);
+             logSecurityException(securityException);
         }
     }
 
@@ -189,7 +195,7 @@ public class GeofenceHandling implements GoogleApiClient.ConnectionCallbacks, Go
                 if (!mGeofenceList.contains(builder.build()))
                     mGeofenceList.add(builder.build());
 
-                Log.d(TAG, "Numbers of Geofences" + mGeofenceList.size());
+                Log.d(TAG, "addMessageToGeofenceList Numbers of Geofences" + mGeofenceList.size());
             }
         }
 
@@ -203,6 +209,11 @@ public class GeofenceHandling implements GoogleApiClient.ConnectionCallbacks, Go
             return 30000;
         }
         return 60000;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
     }
 }
 

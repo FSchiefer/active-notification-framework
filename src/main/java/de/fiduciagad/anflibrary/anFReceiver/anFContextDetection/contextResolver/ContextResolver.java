@@ -6,6 +6,9 @@ import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.google.android.gms.location.DetectedActivity;
+
+import de.fiduciagad.anflibrary.R;
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.activityRecognition.ActivityApiHandling;
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.calendarCheck.AppointmentCheck;
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextResolver.ContextResolverInterfaces.ActivityInterface;
@@ -18,8 +21,7 @@ import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.deviceCheck.Devi
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.deviceCheck.WatchDetection;
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.locationAwareness.LocationAnswer;
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.locationAwareness.PositionApiHandling;
-import de.fiduciagad.anflibrary.R;
-import com.google.android.gms.location.DetectedActivity;
+import de.fiduciagad.anflibrary.anFReceiver.anFPermissions.CheckCalendarPermissions;
 
 /**
  * Created by Felix on 29.12.2015.
@@ -28,22 +30,23 @@ public class ContextResolver implements ActivityInterface, WatchDetectionInterfa
     int daValue;
     AppointmentCheck appointmentCheck;
 
+    protected static final String TAG = ContextResolver.class.getSimpleName();
+
     private LocationAnswer locAnswer;
-    protected static final String TAG = "Resolver";
     private PositionApiHandling posHandler;
     private ActivityApiHandling actHandler;
     private WatchDetection watchDetection;
     private ContextInterface answer;
     private Context mContext;
-
     private BatteryRequestCheck check;
-
     private DeviceState deviceState;
-    boolean currentAppointment;
-    boolean currentAppointmentInstantiated;
+    private boolean currentAppointment;
+    private boolean currentAppointmentInstantiated;
 
     private boolean smartWatchAvailable;
     private boolean smartWatchAvailableInstantiated;
+
+    private CheckCalendarPermissions checkCalendarPermissions;
 
     private static ContextResolver instance;
 
@@ -56,6 +59,8 @@ public class ContextResolver implements ActivityInterface, WatchDetectionInterfa
 
     private ContextResolver(Context context) {
         this.mContext = context;
+        checkCalendarPermissions = new CheckCalendarPermissions();
+
         appointmentCheck = new AppointmentCheck(context);
         daValue = -1;
         deviceState = new DeviceState(context);
@@ -66,6 +71,7 @@ public class ContextResolver implements ActivityInterface, WatchDetectionInterfa
     }
 
     public void getContext(ContextInterface answer) {
+        Log.i(TAG, "Context detection started");
         this.answer = answer;
 
         watchDetection.run();
@@ -82,7 +88,9 @@ public class ContextResolver implements ActivityInterface, WatchDetectionInterfa
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         if (prefs.getBoolean(res.getString(R.string.useCalendarKey), true)) {
             Log.i(TAG, "Calendar Allowed");
+
             currentAppointment = appointmentCheck.checkCurrentAppointments();
+
             currentAppointmentInstantiated = true;
         } else {
             currentAppointment = false;

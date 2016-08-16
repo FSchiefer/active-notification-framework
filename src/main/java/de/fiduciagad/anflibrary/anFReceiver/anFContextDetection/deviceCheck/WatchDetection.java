@@ -1,18 +1,14 @@
 package de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.deviceCheck;
 
 import android.content.Context;
-import android.util.Log;
+
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextResolver.ContextResolverInterfaces.WatchDetectionInterface;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.wearable.Node;
-import com.google.android.gms.wearable.Wearable;
-
-import java.util.List;
-
 /**
  * Created by Felix Schiefer on 23.01.2016.
+ * This class is used to detect if a smartwatch is connected with the smartphone or not
  */
 public class WatchDetection implements Runnable {
     Context context;
@@ -27,11 +23,13 @@ public class WatchDetection implements Runnable {
 
     @Override
     public void run() {
-        gClient = new GoogleApiClient.Builder(context).addApi(Wearable.API).build();
+        //TODO: Find a way to enable watch detection again. At the moment the code stops at: Wearable.NodeApi.getConnectedNodes(gClient).await().getNodes()
+/*        gClient = new GoogleApiClient.Builder(context).addApi(Wearable.API).build();
 
         gClient.connect();
 
         List<Node> connectedNodes = Wearable.NodeApi.getConnectedNodes(gClient).await().getNodes();
+        Log.d(CLASS_NAME, "connected nodes" + connectedNodes.size());
         for (Node node : connectedNodes) {
             Log.d(CLASS_NAME, "Display Name " + node.getDisplayName() + " Nearby " + node.isNearby());
             BluetoothDevices devices = new BluetoothDevices();
@@ -42,6 +40,7 @@ public class WatchDetection implements Runnable {
             }
         }
 
-        gClient.disconnect();
+        gClient.disconnect();*/
+        resolver.setWatchAvailable(false);
     }
 }

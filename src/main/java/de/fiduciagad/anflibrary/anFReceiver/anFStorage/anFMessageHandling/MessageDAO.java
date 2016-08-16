@@ -45,6 +45,11 @@ public class MessageDAO extends AnFOpenHandler {
         this.close();
     }
 
+    public void deleteAnFMessage(){
+        this.deleteMessage(id);
+        this.close();
+    }
+
     public long getId() {
         return id;
     }

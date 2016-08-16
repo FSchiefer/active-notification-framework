@@ -26,25 +26,27 @@ public class GeofenceTriggerService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        GeofenceHandling handling = GeofenceHandling.getInstance(this);
-        if (!handling.refreshGeofences()) {
-            Log.i(CLASS_NAME, "No Available Geofences");
-            MessageDB messageDB = new MessageDB(this);
+                GeofenceHandling handling = GeofenceHandling.getInstance(this);
+        if(handling != null) {
+            if (!handling.refreshGeofences()) {
+                Log.i(CLASS_NAME, "No Available Geofences");
+                MessageDB messageDB = new MessageDB(this);
 
-            List<MessageDAO> messages = messageDB.getPositionDependentMessages();
-            List<MessageDAO> permanentFences = new ArrayList<>();
-            for (MessageDAO message : messages) {
-                if (message.getAnFMessageParts().getPositionDependency().getDuration() < 1) {
-                    permanentFences.add(message);
+                List<MessageDAO> messages = messageDB.getPositionDependentMessages();
+                List<MessageDAO> permanentFences = new ArrayList<>();
+                for (MessageDAO message : messages) {
+                    if (message.getAnFMessageParts().getPositionDependency().getDuration() < 1) {
+                        permanentFences.add(message);
+                    }
+                }
+                if (permanentFences.size() > 0) {
+                    for (MessageDAO message : permanentFences) {
+                        handling.addMessageToGeofenceList(message.getAnFMessageParts(), message.getId());
+                    }
                 }
             }
-            if (permanentFences.size() > 0) {
-                for (MessageDAO message : permanentFences) {
-                    handling.addMessageToGeofenceList(message.getAnFMessageParts(), message.getId());
-                }
-            }
+
+            handling.connect();
         }
-
-        handling.connect();
     }
 }

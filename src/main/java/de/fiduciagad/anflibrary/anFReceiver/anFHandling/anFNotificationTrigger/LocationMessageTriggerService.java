@@ -7,17 +7,17 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
-import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextValue.ContextInterface;
-import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFMessageHandling.MessageDB;
-import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextValue.ContextAnswer;
-import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextResolver.ContextResolver;
-import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFMessageHandling.MessageDAO;
-
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextResolver.ContextResolver;
+import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextValue.ContextAnswer;
+import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextValue.ContextInterface;
+import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFMessageHandling.MessageDAO;
+import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFMessageHandling.MessageDB;
 
 /**
  * Created by Felix Schiefer on 10.01.2016.
@@ -59,23 +59,19 @@ public class LocationMessageTriggerService extends IntentService implements Cont
             return;
         }
 
-        // Get the transition service.
         int geofenceTransition = geofencingEvent.getGeofenceTransition();
 
         List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
 
-        // Get the transition details as a String.
         String geofenceTransitionDetails = getGeofenceTransitionDetails(this, geofenceTransition, triggeringGeofences);
         Log.i(TAG, geofenceTransitionDetails);
 
-        // Test that the reported transition was of interest.
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
             sendNotification();
         } else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
             removeNotification();
         } else {
-            // Log the error.
-            Log.e(TAG, "Anderer Fehler aufgetreten");
+            Log.e(TAG, "Other error occured");
         }
     }
 
@@ -104,8 +100,7 @@ public class LocationMessageTriggerService extends IntentService implements Cont
     }
 
     /**
-     * Posts a notification in the notification bar when a transition is detected.
-     * If the user clicks the notification, control goes to the MainActivity.
+     * Sends message to the context detection.
      */
     private void sendNotification() {
         Log.d(TAG, "Service Started");
@@ -117,13 +112,16 @@ public class LocationMessageTriggerService extends IntentService implements Cont
         int messageCount = contextResolver.batteryStatusOk() ? messageDB.getMessagesById(triggeringGeofencesIdsList).size() : messageDB.getUrgentMessagesById(triggeringGeofencesIdsList).size();
 
         if (messageCount > 0) {
-            Log.i(TAG, "Service Started");
+            Log.i(TAG, "Service Started, messageCount>0");
             contextResolver.getContext(this);
         } else {
             Log.i(TAG, "No service needed because Battery to low");
         }
     }
 
+    /**
+     * This method is used to remove notifications when a user is leaving the trigger area
+     */
     private void removeNotification() {
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(mActivity);

@@ -8,16 +8,16 @@ import android.location.Location;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextResolver.ContextResolverInterfaces.PositionInterface;
-import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.googleApiHandling.GoogleApiHandling;
-import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.Constants;
-
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import java.util.List;
+
+import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.Constants;
+import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextResolver.ContextResolverInterfaces.PositionInterface;
+import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.googleApiHandling.GoogleApiHandling;
 
 /**
  * Created by Felix Schiefer on 05.01.2016.
@@ -28,10 +28,12 @@ public class LocationHandling extends GoogleApiHandling {
     protected static final String TAG = "LocationHandling";
     private Intent intent;
     private PositionInterface positionInterface;
+    private Context context;
     boolean alreadySent;
 
     public LocationHandling(Context context, GoogleApiClient gClient, PositionInterface positionInterface) {
         super(context, gClient);
+        this.context = context;
         mReceiver = new AddressResultReceiver();
         this.positionInterface = positionInterface;
         // Create an intent for passing to the intent service responsible for fetching the address.
@@ -45,7 +47,14 @@ public class LocationHandling extends GoogleApiHandling {
         alreadySent = false;
 
         Log.i(TAG, "Location is called");
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(gClient);
+        try {
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(gClient);
+        } catch (SecurityException securityException) {
+            Log.e(TAG, "No Permission for ACCESS_FINE_LOCATION you need to request this permission from the user, else no positionDependency information is used");
+            LocationAnswer locAnswer = new LocationAnswer(context);
+            positionInterface.setPosition(locAnswer);
+            return;
+        }
 
         if (mLastLocation != null) {
 
@@ -56,18 +65,22 @@ public class LocationHandling extends GoogleApiHandling {
                 mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
                 // TODO: Implement termination condition after X runs to prevent to many repeats
-                LocationServices.FusedLocationApi.requestLocationUpdates(gClient, mLocationRequest, new LocationListener() {
-                    @Override
-                    public void onLocationChanged(Location location) {
-                        Log.i(TAG, "Update Received");
-                        if (location.getAccuracy() < 50) {
-                            Log.i(TAG, "New Location is accurate enough");
-                            mLastLocation = location;
-                            LocationServices.FusedLocationApi.removeLocationUpdates(gClient, this);
-                            handleLocation();
+                try {
+                    LocationServices.FusedLocationApi.requestLocationUpdates(gClient, mLocationRequest, new LocationListener() {
+                        @Override
+                        public void onLocationChanged(Location location) {
+                            Log.i(TAG, "Update Received");
+                            if (location.getAccuracy() < 50) {
+                                Log.i(TAG, "New Location is accurate enough");
+                                mLastLocation = location;
+                                LocationServices.FusedLocationApi.removeLocationUpdates(gClient, this);
+                                handleLocation();
+                            }
                         }
-                    }
-                });
+                    });
+                } catch (SecurityException securityException) {
+                    Log.e(TAG, "No Permission for COARSE_LOCATION you need to request this permission from the user");
+                }
                 return;
             }
             handleLocation();
