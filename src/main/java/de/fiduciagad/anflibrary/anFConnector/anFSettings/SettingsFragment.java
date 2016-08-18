@@ -20,11 +20,10 @@ import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.VibrationS
 
 import java.util.List;
 
-/**
- * Created by Felix Schiefer on 02.11.2015.
- */
+//TODO FS add javadoc
 public class SettingsFragment extends PreferenceFragment {
-    private static String CLASS_NAME = SettingsFragment.class.getSimpleName();
+
+ private static final String CLASS_NAME = SettingsFragment.class.getSimpleName();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,4 +74,5 @@ public class SettingsFragment extends PreferenceFragment {
 
         return root;
     }
+    
 }

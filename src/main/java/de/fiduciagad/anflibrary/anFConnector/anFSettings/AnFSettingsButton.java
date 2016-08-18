@@ -8,16 +8,16 @@ import android.view.View;
 import android.widget.Button;
 
 /**
- * Created by Felix Schiefer on 02.11.2015.
- * Button to start the settings activity
+ * Button to start the settings activity.
  */
 public class AnFSettingsButton extends Button {
 
-    private static final String CLASS_NAME = AnFSettingsButton.class.getSimpleName();
+ private static final String CLASS_NAME = AnFSettingsButton.class
+   .getSimpleName();
 
-    Context context;
+ private Context context;
 
-    public AnFSettingsButton(Context context) {
+ public AnFSettingsButton(Context context) {
         super(context);
         this.setText("AnFSettings");
         this.context = context;
@@ -29,10 +29,12 @@ public class AnFSettingsButton extends Button {
         });
     }
 
-    public void showPreferences(View view) {
-        Intent intent = new Intent(context, SettingsActivity.class);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+ public void showPreferences(View view) {
+  Intent intent = new Intent(context, SettingsActivity.class);
+  SharedPreferences prefs = PreferenceManager
+    .getDefaultSharedPreferences(context);
 
-        context.startActivity(intent);
-    }
+  context.startActivity(intent);
+ }
+
 }

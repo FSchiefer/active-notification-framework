@@ -6,9 +6,10 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 
 /**
- * Created by Felix Schiefer on 06.01.2016.
+ * This class is used to create a modified EditTextPreference to see the selection of a User
  */
 public class ModifiedEditText extends EditTextPreference {
+
     public ModifiedEditText(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -21,7 +22,11 @@ public class ModifiedEditText extends EditTextPreference {
         super(context);
     }
 
-    // According to ListPreference implementation
+    /**
+     * This method is mad to provide the correct summary
+     *
+     * @return The modified CharSequence
+     */
     @Override
     public CharSequence getSummary() {
         String text = getText();

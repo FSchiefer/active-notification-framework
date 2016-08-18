@@ -11,13 +11,6 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageNotificationViews.NotificationType;
-import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.AnFText;
-import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.PositionDependency;
-import de.fiduciagad.anflibrary.anFReceiver.anFStorage.AnFOpenHandler;
-import de.fiduciagad.anflibrary.R;
-import de.fiduciagad.anflibrary.anFConnector.AnFConnector;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,15 +18,21 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import de.fiduciagad.anflibrary.R;
+import de.fiduciagad.anflibrary.anFConnector.AnFConnector;
+import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.AnFText;
+import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.PositionDependency;
+import de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageNotificationViews.NotificationType;
+import de.fiduciagad.anflibrary.anFReceiver.anFStorage.AnFOpenHandler;
+
 /**
- * Created by Felix Schiefer on 30.01.2016.
  * Adapter to display messages in the message list
  */
- class AnFMessageAdapter extends CursorAdapter {
+class AnFMessageAdapter extends CursorAdapter {
 
     private static final String CLASS_NAME = AnFMessageAdapter.class.getSimpleName();
 
-    private int iD;
+    private int id;
 
     private final Date date;
 
@@ -87,7 +86,7 @@ import java.util.Date;
        /*     e.printStackTrace();*/
         }
 
-        iD = cursor.getInt(ciID);
+        id = cursor.getInt(ciID);
         Log.i(CLASS_NAME, " Cursor " + cursor.getPosition() + " Service Value " + cursor.getString(ciType) + " ID " + cursor.getInt(ciID) + " Moftext " + anFText.getTitle() + "Send " + cursor.getInt(ciSent));
 
         if (anFText != null && cursor.getInt(ciSent) == 1) {
@@ -112,7 +111,7 @@ import java.util.Date;
         }
     }
 
-    public int getiD() {
-        return iD;
+    public int getId() {
+        return id;
     }
 }

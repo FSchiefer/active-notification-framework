@@ -19,7 +19,7 @@ import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.DetectedActivity;
 
 /**
- * Klasse zum Steuern des Handlings der Google API um die Tätigkeiten eines Nutzers herauszufinden
+ * This class is used to control the handle the google API for activity detection of a user
  */
 public class ActivityHandling extends GoogleApiHandling implements ResultCallback<Status> {
 

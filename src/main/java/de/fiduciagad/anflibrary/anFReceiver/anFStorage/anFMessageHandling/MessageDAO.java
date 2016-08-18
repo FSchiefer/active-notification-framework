@@ -42,6 +42,7 @@ public class MessageDAO extends AnFOpenHandler {
     public void insert(AnFMessage anFMessage) {
         this.anFMessage = anFMessage;
         this.insertAnFMessage(this);
+        this.setAnFMessageParts(anFMessage.getMessageParts());
         this.close();
     }
 

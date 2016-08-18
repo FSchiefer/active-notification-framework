@@ -14,7 +14,7 @@ public abstract class GoogleApiHandling {
     protected GoogleApiClient gClient;
     protected BroadcastReceiver mReceiver;
 
-    protected static final String TAG = "GoogleApiHandling";
+    protected static final String TAG = GoogleApiHandling.class.getSimpleName();
 
     public GoogleApiHandling(Context context, GoogleApiClient gClient) {
         this.mContext = context;

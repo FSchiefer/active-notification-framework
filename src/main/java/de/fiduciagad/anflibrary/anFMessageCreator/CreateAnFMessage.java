@@ -7,11 +7,12 @@ import de.fiduciagad.anflibrary.R;
 import org.json.JSONObject;
 
 /**
- * Created by Felix Schiefer on 27.01.2016.
  * This class is used to create the core of a message that could be used in the framework.
  */
 public class CreateAnFMessage extends ValueCreator {
-    JSONObject anFMessage;
+
+
+ private JSONObject anFMessage;
 
     public CreateAnFMessage(Context context) {
         super(context);
@@ -23,7 +24,6 @@ public class CreateAnFMessage extends ValueCreator {
     }
 
     public void setIdentifier(String anFValues) {
-
         setValue(R.string.identifier, anFMessage, anFValues);
     }
 
@@ -43,4 +43,5 @@ public class CreateAnFMessage extends ValueCreator {
     public JSONObject getJSONObject() {
         return anFMessage;
     }
+    
 }

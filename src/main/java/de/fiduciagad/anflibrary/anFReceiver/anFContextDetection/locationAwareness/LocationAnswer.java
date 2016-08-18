@@ -27,7 +27,7 @@ public class LocationAnswer {
     private Context context;
     private boolean atWork = false;
     private boolean atHome = false;
-    private static String TAG = "LocationAnswer";
+    private static String TAG = LocationAnswer.class.getSimpleName();
 
     public LocationAnswer(Context context) {
         this.context = context;

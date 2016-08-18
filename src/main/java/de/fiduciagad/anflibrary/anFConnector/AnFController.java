@@ -9,9 +9,6 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.fiduciagad.anflibrary.R;
 import de.fiduciagad.anflibrary.anFMessageCreator.CreateAnFMessage;
 import de.fiduciagad.anflibrary.anFReceiver.anFHandling.anFNotificationControl.GeofenceHandling;
@@ -23,14 +20,13 @@ import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFMessageHandling.Messag
 
 /**
  * AnF-Messages which should be used by the Framework need to be given to the functions
- * in this class
+ * in this class.
  */
 public class AnFController {
 
     private Activity mActivity;
 
     private MessageDB messageDB;
-
 
     private static final String CLASS_NAME = AnFController.class.getSimpleName();
 
@@ -41,24 +37,24 @@ public class AnFController {
     }
 
     /**
+     * This method is used to receive AnF-messages as string
+     *
      * @param payload The AnF-message as string for the conversion in an JSON-Object
      * @return Boolean which says if the given message is valid
      */
     public boolean handleMessage(String payload) {
-
-        JSONObject jsonPayload = null;
-
         try {
-            jsonPayload = new JSONObject(payload);
+            JSONObject jsonPayload = new JSONObject(payload);
+            return handleMessage(jsonPayload);
         } catch (JSONException e) {
             e.printStackTrace();
             return false;
         }
-
-        return handleMessage(jsonPayload);
     }
 
     /**
+     * This method is used to receive AnF-messages as CreateAnFMessage objects
+     *
      * @param anFMessage A AnF-message which is created with the CreateAnFMessage class
      * @return Boolean which says if the given message is valid
      */
@@ -68,6 +64,8 @@ public class AnFController {
     }
 
     /**
+     * This method is used to create an AnF-Message as JSONObject
+     *
      * @param message The AnF-Message in a JSONObject representation
      * @return Boolean which says if the given message is valid
      */
@@ -81,9 +79,8 @@ public class AnFController {
         if (m != null && m.isValid()) {
             Intent notificationController = new Intent(mActivity, InstantMessageTriggerService.class);
             Log.i(CLASS_NAME, "M is " + m.isValid() + " Service " + m.getService());
-
             messageDAO.insert(m);
-            Boolean x = addPositionDependency(messageDAO, m);
+            Boolean x = addPositionDependency(messageDAO);
             if (x != null)
                 return x;
 
@@ -98,16 +95,16 @@ public class AnFController {
     }
 
     /**
-     * This method is used to add Messages with position dependencies to a geofence and request the granted permissions
-     * @param messageDAO
-     * @param m
-     * @return true if geofences can be added to the framework fal
+     * This method is used to add Messages with position dependencies to a geofence and request the granted permissions.
+     *
+     * @param messageDAO The messageDAO object in the Database
+     * @return true if geofences can be added to the framework false if permission isn't granted
      */
     @Nullable
-    private Boolean addPositionDependency(MessageDAO messageDAO, AnFMessage m) {
-        if (m.getPositiondependency() != null) {
+    private Boolean addPositionDependency(MessageDAO messageDAO) {
+        if (messageDAO.getAnFMessage().getPositiondependency() != null) {
             CheckPositionPermissions positionPermissions = new CheckPositionPermissions();
-            if (m.getPositiondependency().isTrigger()) {
+            if (messageDAO.getAnFMessage().getPositiondependency().isTrigger()) {
                 if (positionPermissions.permissionRequestProvided(mActivity)) {
                     Log.e(CLASS_NAME, "Location detection permission not given, send messages again");
                     messageDAO.deleteAnFMessage();
@@ -115,7 +112,7 @@ public class AnFController {
                 } else {
                     Log.d(CLASS_NAME, "FineLocationPermissionGranted");
                     GeofenceHandling handling = GeofenceHandling.getInstance(mActivity);
-                    handling.addMessageToGeofenceList(m.getMessageParts(), messageDAO.getId());
+                    handling.addMessageToGeofenceList(messageDAO.getAnFMessageParts(), messageDAO.getId());
                     handling.connect();
                     return true;
                 }

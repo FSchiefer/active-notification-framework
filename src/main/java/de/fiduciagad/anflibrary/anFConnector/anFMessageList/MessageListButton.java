@@ -6,8 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 /**
- * Created by Felix Schiefer on 30.01.2016.
- * Mit diesem Button wird die Message List Acitivity eingebunden.
+ * With this button the MessageListActivity can be implemented
  */
 public class MessageListButton extends Button {
 
@@ -29,7 +28,6 @@ public class MessageListButton extends Button {
 
     public void showMessageList(View view) {
         Intent intent = new Intent(context, MessageListActivity.class);
-
         context.startActivity(intent);
     }
 }

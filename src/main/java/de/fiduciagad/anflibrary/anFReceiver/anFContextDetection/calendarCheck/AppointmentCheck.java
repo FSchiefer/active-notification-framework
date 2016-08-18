@@ -27,7 +27,7 @@ public class AppointmentCheck {
         try {
             c = context.getContentResolver().query(CalendarContract.Events.CONTENT_URI, null, null, null, null);
         } catch(SecurityException securityException){
-            Log.e(TAG,"No permission for calendar given. No appointment set");
+            Log.e(TAG,"No permission for calendar given. No appointment is set while permission not given");
             return false;
         }
         if (c != null) {

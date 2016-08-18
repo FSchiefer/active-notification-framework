@@ -29,11 +29,12 @@ import org.json.JSONObject;
 import java.util.List;
 
 /**
- * Created by Felix Schiefer on 30.01.2016.
- * Activity wicht can be implemented in different ways to implement a message list
+ * Activity which can be implemented in different ways to implement a message list. 
  */
 public class MessageListActivity extends Activity {
+ 
     private static final String CLASS_NAME = MessageListActivity.class.getSimpleName();
+    
     private CursorAdapter ca;
     private MessageDB dbHandler;
     private Spinner filterSpinner;
@@ -94,20 +95,15 @@ public class MessageListActivity extends Activity {
     }
 
     private void onClick(long id) {
-
         Intent activityToOpen = NotificationClickedActivity.getMessageActivity(this, (int) id);
-
         startService(activityToOpen);
     }
 
     private void updateList() {
-
-        Cursor cursor = null;
+        Cursor cursor;
         if (filterSpinner.getSelectedItem().toString().equals(defaultValue)) {
-
             cursor = dbHandler.queryMessageCursor(urgentBox.isChecked());
         } else {
-
             cursor = dbHandler.queryMessageCursor(filterSpinner.getSelectedItem().toString(), urgentBox.isChecked());
             Log.i(CLASS_NAME, " Cursor " + cursor.getCount() + " Search Value " + filterSpinner.getSelectedItem().toString());
         }
@@ -121,10 +117,7 @@ public class MessageListActivity extends Activity {
         typeList.add(0, defaultValue);
 
         String[] labels = typeList.toArray(new String[0]);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, labels);
-
-        return adapter;
+        return new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, labels);
     }
 
     private void getAllEntries() {

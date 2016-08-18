@@ -127,10 +127,6 @@ public class FetchLocationIntentService extends IntentService {
 
             localIntent.putExtra(Constants.RESULT_DATA_KEY, addressFragments);
             LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
-
-
-         /*   deliverResultToReceiver(Constants.SUCCESS_RESULT,
-                    TextUtils.join(System.getProperty("line.separator"), addressFragments));*/
         }
     }
 }

@@ -4,6 +4,7 @@ import com.google.android.gms.location.DetectedActivity;
 
 /**
  * Created by Felix Schiefer on 26.02.2016.
+ * This class contains all Activity Values as Enumeration
  */
 public enum ActivityEnum {
     DRIVING, WALKING, STILL;

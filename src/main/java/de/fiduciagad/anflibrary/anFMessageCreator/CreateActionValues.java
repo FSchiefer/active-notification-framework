@@ -9,10 +9,9 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-/**
- * Created by Felix Schiefer on 27.01.2016.
- */
+//TODO FS add javadoc
 public class CreateActionValues extends ValueCreator {
+ 
     private JSONObject voiceAnswer;
     private JSONArray quickAnswer;
     private JSONObject answer;
@@ -22,9 +21,8 @@ public class CreateActionValues extends ValueCreator {
         answer = new JSONObject();
     }
 
-    /**
-     * @param answers
-     */
+  //TODO FS add javadoc
+
     public void setQuickAnswer(List<String> answers) {
         quickAnswer = new JSONArray();
 
@@ -39,7 +37,6 @@ public class CreateActionValues extends ValueCreator {
     }
 
     public void setVoiceAnswer() {
-
         setValue(R.string.voiceAnswer, answer, true);
     }
 
@@ -52,4 +49,5 @@ public class CreateActionValues extends ValueCreator {
     public JSONObject getJSONObject() {
         return answer;
     }
+    
 }

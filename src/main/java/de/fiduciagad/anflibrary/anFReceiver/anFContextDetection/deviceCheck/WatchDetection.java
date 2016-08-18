@@ -41,6 +41,8 @@ public class WatchDetection implements Runnable {
         }
 
         gClient.disconnect();*/
-        resolver.setWatchAvailable(false);
+        // While API isn't working this class is used
+        BluetoothDevices devices = new BluetoothDevices();
+        resolver.setWatchAvailable(devices.isSmartwatchAvailable());
     }
 }

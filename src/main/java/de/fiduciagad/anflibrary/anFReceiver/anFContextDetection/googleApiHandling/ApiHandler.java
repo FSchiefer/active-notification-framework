@@ -15,7 +15,7 @@ public class ApiHandler implements GoogleApiClient.ConnectionCallbacks, GoogleAp
     protected GoogleApiClient gClient;
     protected Context mContext;
 
-    protected static final String TAG = "ApiHandler";
+    protected static final String TAG = ApiHandler.class.getSimpleName();
     GoogleApiHandling handler;
 
     public ApiHandler(Context context) {

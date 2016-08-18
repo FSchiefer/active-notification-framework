@@ -7,19 +7,32 @@ import android.util.AttributeSet;
 
 import de.fiduciagad.anflibrary.R;
 
+//TODO: Check settings for code clones
 /**
- * Created by Felix Schiefer on 06.01.2016.
+ * With this class you can create a preference checkbox for a user to set all messages
+ * of a specified service as confidential
  */
 public class AllConfidentialSetting extends CheckBoxPreference {
+
     public AllConfidentialSetting(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * This constructor can be used to create the default values for the allConfidential settings
+     *
+     * @param context The application context
+     * @param service The name of the service for that a user want's to make the setting
+     */
     public AllConfidentialSetting(Context context, String service) {
         super(context);
         setValues(service);
     }
 
+    /**
+     * This method is made to set the values of the allConfigential setting
+     * @param service The name of the service for that a user want's to make the setting
+     */
     private void setValues(String service) {
         Resources res = getContext().getResources();
 
