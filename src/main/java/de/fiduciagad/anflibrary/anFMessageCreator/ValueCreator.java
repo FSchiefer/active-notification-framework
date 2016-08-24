@@ -6,7 +6,10 @@ import android.content.res.Resources;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-//TODO FS add javadoc
+
+/**
+ * This class is a helper class used to add attributes to an JSON Object.
+ */
 public abstract class ValueCreator {
 
     protected Resources res;

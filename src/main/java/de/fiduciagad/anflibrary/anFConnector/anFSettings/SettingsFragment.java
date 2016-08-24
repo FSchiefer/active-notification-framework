@@ -9,21 +9,24 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 
-import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.AllConfidentialSetting;
-import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.ServiceAllowedSetting;
-import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFServiceHandling.ServiceDB;
-import de.fiduciagad.anflibrary.R;
-import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.AllUrgentSetting;
-import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.ConfidentialSetting;
-import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.UrgencySetting;
-import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.VibrationSetting;
-
 import java.util.List;
 
-//TODO FS add javadoc
+import de.fiduciagad.anflibrary.R;
+import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.AllConfidentialSetting;
+import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.AllUrgentSetting;
+import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.ConfidentialSetting;
+import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.ServiceAllowedSetting;
+import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.UrgencySetting;
+import de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.VibrationSetting;
+import de.fiduciagad.anflibrary.anFReceiver.anFStorage.anFServiceHandling.ServiceDB;
+
+/**
+ * This class is used to create a Fragment with all Settings for all Services.
+ * This Fragment could be implemented in an own application in every wanted way
+ */
 public class SettingsFragment extends PreferenceFragment {
 
- private static final String CLASS_NAME = SettingsFragment.class.getSimpleName();
+    private static final String CLASS_NAME = SettingsFragment.class.getSimpleName();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,7 +36,11 @@ public class SettingsFragment extends PreferenceFragment {
         addPreferencesFromResource(R.xml.contextpreferences);
     }
 
-    // The first time application is launched this should be read
+    /**
+     * This method is used to create all Preferences for all Services in the Database
+     *
+     * @return The configured preferenceScreen
+     */
     private PreferenceScreen defaultPref() {
         final Context context = getActivity();
 
@@ -74,5 +81,4 @@ public class SettingsFragment extends PreferenceFragment {
 
         return root;
     }
-    
 }

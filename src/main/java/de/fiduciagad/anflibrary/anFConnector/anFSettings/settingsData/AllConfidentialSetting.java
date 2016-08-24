@@ -10,7 +10,7 @@ import de.fiduciagad.anflibrary.R;
 //TODO: Check settings for code clones
 /**
  * With this class you can create a preference checkbox for a user to set all messages
- * of a specified service as confidential
+ * of a specified service as confidential. No Changes needed to use the
  */
 public class AllConfidentialSetting extends CheckBoxPreference {
 

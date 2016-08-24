@@ -1,7 +1,7 @@
 # active-notification-framework
 The active-notification-framework is a framework managing notifications on multiple registered devices (phone,watch,...) based on activity, location and behaviour. 
 
-Notifications will get different signal depending on their importance and the context of the user. In the first versions the channels phone and watch are used to create a better user experience for a user with notifications.
+Notifications will get different signals depending on their importance and the context of the user. In the first versions the channels phone and watch are used to create a better user experience for a user with notifications.
 
 The framework is a result of a master's thesis that was made for the university of applied science in Offenburg and the Fiducia & GAD IT AG.
 
