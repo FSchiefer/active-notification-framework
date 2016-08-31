@@ -52,11 +52,17 @@ public class PositionDependency extends MessagePart {
         super(anfObject, context);
 
         placeList = new ArrayList<>();
-/*        position = getJSONObject(R.string.position, anfObject);*/
-        positionTrigger = getJSONObject(R.string.positionTrigger, anfObject);
 
         // Triggerdistanz
-        distance = getJSONString(R.string.meter, positionTrigger);
+        positionTrigger = getJSONObject(R.string.positionTrigger, anfObject);
+        if (positionTrigger != null) {
+            if (getJSONString(R.string.meter, positionTrigger) != null) {
+                distance = getJSONString(R.string.meter, positionTrigger);
+            } else {
+                distance = "";
+            }
+        }
+
 
         navigation = getJSONBoolean(R.string.navigation, anfObject);
 
@@ -67,7 +73,6 @@ public class PositionDependency extends MessagePart {
         }
         trigger = false;
         if (distance != null && !distance.equals("")) {
-
             trigger = true;
         }
 
@@ -123,7 +128,6 @@ public class PositionDependency extends MessagePart {
     }
 
     public boolean isTrigger() {
-
         Log.i(CLASS_NAME, "Trigger = " + trigger);
         return trigger;
     }
@@ -133,9 +137,12 @@ public class PositionDependency extends MessagePart {
         if (addresses == null) {
             setAddress();
         }
-        if (positionTrigger != null && isValidAddress) {
-
-            return (isValidPositions() && isValidPositionTrigger());
+        if (isValidAddress) {
+            if (positionTrigger != null) {
+                return (isValidPositions() && isValidPositionTrigger());
+            } else {
+                return (isValidPositions());
+            }
         }
         return false;
     }

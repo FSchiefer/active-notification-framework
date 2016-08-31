@@ -9,6 +9,7 @@ import android.location.Address;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
@@ -18,6 +19,8 @@ import de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageViews.mes
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.messageParts.PositionDependency;
 import de.fiduciagad.anflibrary.anFReceiver.anFMessages.view.anFMessageViews.messageFragments.AnFTextFragment;
 import de.fiduciagad.anflibrary.R;
+import de.fiduciagad.anflibrary.anFReceiver.anFPermissions.CheckPositionPermissions;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -27,10 +30,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * This class is used to Display a default position Activity with a Google Maps fragment with all
+ * sent addresses
+ */
 public class LocationMessageActivity extends FragmentActivity implements LocationDependencyFragment.OnFragmentInteractionListener, AnFTextFragment.OnFragmentInteractionListener, OnMapReadyCallback {
 
     private PositionDependency positionDependency;
     private static final String CLASS_NAME = LocationMessageActivity.class.getSimpleName();
+    private GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,24 +92,38 @@ public class LocationMessageActivity extends FragmentActivity implements Locatio
     @Override
     public void onMapReady(GoogleMap googleMap) {
         if (googleMap != null) {
-            // For showing a move to my loction button
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
+            // For showing a move to my location button permission is needed
+            CheckPositionPermissions positionPermissions = new CheckPositionPermissions();
+            if (positionPermissions.permissionAllowed(this)) {
+                try {
+                    googleMap.setMyLocationEnabled(true);
+                } catch (SecurityException e) {
+                    //TODO: Add Exception handling
                 }
+            } else {
+                map = googleMap;
+                positionPermissions.providePermissionRequestDialog(this);
             }
-            googleMap.setMyLocationEnabled(true);
-            long starttime = System.currentTimeMillis();
-
-            Log.i(CLASS_NAME, "Duration get Addresses: " + (System.currentTimeMillis() - starttime));
             for (Address address : positionDependency.getAddresses()) {
 
                 if (address != null) {
                     googleMap.addMarker(new MarkerOptions().position(new LatLng(address.getLatitude(), address.getLongitude())).title(positionDependency.getPlaceName()).snippet("Gesendet von der Nachricht"));
                 }
-
-            /*    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(address.getLatitude(), address.getLongitude()), 12));*/
             }
+        }
+    }
+
+    // This method get's called if a permission request get's answered
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        CheckPositionPermissions positionPermissions = new CheckPositionPermissions();
+        if (positionPermissions.permissionAllowed(this)) {
+            if (map != null)
+                try {
+                    map.setMyLocationEnabled(true);
+                } catch (SecurityException e) {
+
+                }
         }
     }
 }

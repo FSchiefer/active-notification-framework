@@ -27,7 +27,7 @@ public class CreateAnFMessage extends ValueCreator {
         setValue(R.string.identifier, anFMessage, anFValues);
     }
 
-    public void setMofText(CreateAnFTextValues anFValues) {
+    public void setAnFText(CreateAnFTextValues anFValues) {
         setValue(R.string.anfText, anFMessage, anFValues.getJSONObject());
     }
 

@@ -18,6 +18,7 @@ import java.util.List;
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.Constants;
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextResolver.ContextResolverInterfaces.PositionInterface;
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.googleApiHandling.GoogleApiHandling;
+import de.fiduciagad.anflibrary.anFReceiver.anFPermissions.CheckPositionPermissions;
 
 /**
  * Created by Felix Schiefer on 05.01.2016.
@@ -47,12 +48,14 @@ public class LocationHandling extends GoogleApiHandling {
         alreadySent = false;
 
         Log.i(TAG, "Location is called");
+        CheckPositionPermissions positionPermissions = new CheckPositionPermissions();
+        if(!positionPermissions.permissionAllowed(context)){
+            noLocationPermissionGranted();
+        }
         try {
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(gClient);
         } catch (SecurityException securityException) {
-            Log.e(TAG, "No Permission for ACCESS_FINE_LOCATION you need to request this permission from the user, else no positionDependency information is used");
-            LocationAnswer locAnswer = new LocationAnswer(context);
-            positionInterface.setPosition(locAnswer);
+            noLocationPermissionGranted();
             return;
         }
 
@@ -79,12 +82,22 @@ public class LocationHandling extends GoogleApiHandling {
                         }
                     });
                 } catch (SecurityException securityException) {
-                    Log.e(TAG, "No Permission for COARSE_LOCATION you need to request this permission from the user");
+                    noLocationPermissionGranted();
                 }
                 return;
             }
             handleLocation();
         }
+    }
+
+    /**
+     * This function get's called from LocationHandling when no Permission for Location Access is granted
+     */
+    private void noLocationPermissionGranted() {
+        Log.e(TAG, "No Permission for ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION you need to request this permission from the user, else no positionDependency information is used");
+        LocationAnswer locAnswer = new LocationAnswer(context);
+        positionInterface.setPosition(locAnswer);
+        return;
     }
 
     private void handleLocation() {

@@ -7,7 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * Struktur für die Nachrichtenelemente die in einer AnFNachricht verwendet werde können.
+ * This class is used to return all basic elements from a JSON Object, that are
+ * needed to create an AnFMessage
  */
 public abstract class MessagePart {
 
@@ -32,11 +33,19 @@ public abstract class MessagePart {
         return null;
     }
 
+    /**
+     * This method is used to retrieve a Boolean from a Json Object. If no boolean is given
+     * false is returned as default value
+     * @param key The key in the jsonObject
+     * @param jsonObject The jsonObject where the key should be stored
+     * @return The stored boolean or false as default
+     */
     protected Boolean getJSONBoolean(int key, JSONObject jsonObject) {
 
         try {
             return jsonObject.getBoolean(res.getString(key));
         } catch (Exception e) {
+            // TODO: Implement exception handling for not existing booleans
           /*  e.printStackTrace();*/
         }
         return false;

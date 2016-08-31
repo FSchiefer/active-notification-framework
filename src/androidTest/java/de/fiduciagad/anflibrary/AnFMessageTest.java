@@ -87,7 +87,7 @@ public class AnFMessageTest extends ActivityTestCase {
 
         CreateAnFMessage anFMessage = new CreateAnFMessage(context);
         anFMessage.setService("Imaginaer");
-        anFMessage.setMofText(createAnFTextValues("imaginaer"));
+        anFMessage.setAnFText(createAnFTextValues("imaginaer"));
         JSONObject jsonObject = anFMessage.getJSONObject();
         AnFMessage message = AnFMessage.getMessage(context, jsonObject);
         assertEquals(null, message);
@@ -120,7 +120,7 @@ public class AnFMessageTest extends ActivityTestCase {
     private CreateAnFMessage createMessageWithPositions() {
         CreateAnFMessage anFMessage = new CreateAnFMessage(context);
         anFMessage.setService(testServiceName);
-        anFMessage.setMofText(createAnFTextValues(testServiceName));
+        anFMessage.setAnFText(createAnFTextValues(testServiceName));
         CreatePositionDependencyValues positionDependencyValues = new CreatePositionDependencyValues(context);
         positionDependencyValues.setTrigger("1000");
         positionDependencyValues.addPlace("Killisfeldstraße 46", "76227", testServiceName);
@@ -135,13 +135,14 @@ public class AnFMessageTest extends ActivityTestCase {
     }
 
     /**
-     * This method is used to create an invalid message object with positions
+     * This method is used to create an invalid message object with positions.
+     * This message is invalid because the Entry with Heinrich-Hertz can't be matched from google
      * @return Invalid AnFMessage object
      */
     private CreateAnFMessage createInvalidMessageWithPositions() {
         CreateAnFMessage anFMessage = new CreateAnFMessage(context);
         anFMessage.setService(testServiceName);
-        anFMessage.setMofText(createAnFTextValues(testServiceName));
+        anFMessage.setAnFText(createAnFTextValues(testServiceName));
         CreatePositionDependencyValues positionDependencyValues = new CreatePositionDependencyValues(context);
         positionDependencyValues.setTrigger("1000");
         positionDependencyValues.addPlace("Killisfeldstraße 46", "76227", testServiceName);
@@ -162,7 +163,7 @@ public class AnFMessageTest extends ActivityTestCase {
     private CreateAnFMessage createMessageWithNoPosition() {
         CreateAnFMessage anFMessage = new CreateAnFMessage(context);
         anFMessage.setService(testServiceName);
-        anFMessage.setMofText(createAnFTextValues(testServiceName));
+        anFMessage.setAnFText(createAnFTextValues(testServiceName));
         return anFMessage;
     }
 
