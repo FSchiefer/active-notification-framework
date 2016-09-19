@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
  * This class is used to encapsulate the android 6 permission request system
  */
 public class PermissionRequest {
+
     private String permission;
     private int permission_request_code;
 
@@ -60,6 +61,15 @@ public class PermissionRequest {
         }
         return false;
     }
+
+    /**
+     * This Function returns the permission that is used.
+     * @return The name of the permission
+     */
+    public String getPermission() {
+        return permission;
+    }
+
 
     public int getPermission_request_code() {
         return permission_request_code;
