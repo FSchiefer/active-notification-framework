@@ -112,7 +112,7 @@ public class LocationDependencyFragment extends MapFragment implements OnMapRead
     public void onMapReady(GoogleMap googleMap) {
         if (googleMap != null) {
             // For showing a move to my loction button
-            googleMap.setMyLocationEnabled(true);
+         //   googleMap.setMyLocationEnabled(true);
 
             // For dropping a marker at a point on the Map
             for (Address address : positionDependency.getAddresses()) {

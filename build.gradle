@@ -1,4 +1,48 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        mavenAndroid(MavenPublication) {
+//            artifact jar
+            groupId 'de.fiduciagad.anflibrary'
+            artifactId 'active-notification-framework'
+            version '0.0.1'
+        }
+    }
+}
+
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    publications = ['mavenAndroid']
+    dryRun = true
+
+    pkg {
+
+        repo = 'maven'
+
+        name = 'active-notification-framework'
+
+        userOrg = user
+
+        licenses = ['GPL-2.1']
+
+        vcsUrl = 'https://github.com/fiduciagad/active-notification-framework.git'
+
+        version {
+
+            name = '0.0.1'
+
+            desc = ''
+
+            vcsTag = '0.0.1'
+        }
+
+    }
+
+}
 
 android {
     compileSdkVersion 23
@@ -27,3 +71,4 @@ dependencies {
     compile 'com.google.android.gms:play-services-wearable:+'
     compile 'com.google.android.gms:play-services-drive:+'
 }
+
