@@ -16,6 +16,10 @@
 
     <string name="settingName">anfpreferences</string>
 
+    <string name="useDisplay">Displayzustand</string>
+    <string name="useDisplayMessage">Zugriff auf den Displayzustand zur Kontextfeststellung erlauben? Wenn der Zugriff verboten ist wird immer davon ausgegangen,dass das display ausgeschaltet ist und somit immer eine Kontextprüfung durchgeführt.</string>
+    <string name="useDisplayKey">Display_key</string>
+
     <string name="usePosition">Ortsinformationen</string>
     <string name="usePositionMessage">Zugriff auf Ortsinformationen für Nachrichten erlauben? Wenn der Zugriff verboten ist wird immer davon ausgegangen,dass man weder daheim noch auf der Arbeit ist</string>
     <string name="usePositionKey">Ortsinformationen_key</string>

@@ -45,6 +45,8 @@ public class GeofenceHandling implements GoogleApiClient.ConnectionCallbacks, Go
 
     private static GeofenceHandling instance;
 
+    private PendingIntent mGeofencePendingIntent;
+
     public static GeofenceHandling getInstance(Context context) {
         if (GeofenceHandling.instance == null) {
             GeofenceHandling.instance = new GeofenceHandling(context);

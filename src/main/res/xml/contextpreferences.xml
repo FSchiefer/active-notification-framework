@@ -15,6 +15,11 @@
         android:key="@string/useActivityRecognitionKey"
         android:summary="@string/useActivityRecognitionMessage"
         android:title="@string/useActivityRecognition" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/useDisplayKey"
+        android:summary="@string/useDisplayMessage"
+        android:title="@string/useDisplay" />
     <de.fiduciagad.anflibrary.anFConnector.anFSettings.settingsData.ModifiedEditText
         android:defaultValue="@string/home_default"
         android:key="@string/home_key"

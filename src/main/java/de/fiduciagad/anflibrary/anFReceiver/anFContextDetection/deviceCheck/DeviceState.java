@@ -18,6 +18,8 @@ public class DeviceState {
     }
 
     public boolean isDisplayRunning() {
+
+
         DisplayManager dm = (DisplayManager) mContext.getSystemService(Context.DISPLAY_SERVICE);
         for (Display display : dm.getDisplays()) {
             Log.i(CLASS_NAME, "Display: " + display.getName() + " DisplayManger has " + dm.getDisplays().length + " Displays");

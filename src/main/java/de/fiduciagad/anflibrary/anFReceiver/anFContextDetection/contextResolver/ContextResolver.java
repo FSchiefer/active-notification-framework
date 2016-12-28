@@ -40,6 +40,8 @@ public class ContextResolver implements ActivityInterface, WatchDetectionInterfa
     private Context mContext;
     private BatteryRequestCheck check;
     private DeviceState deviceState;
+    private Resources res;
+    private SharedPreferences prefs;
     private boolean currentAppointment;
     private boolean currentAppointmentInstantiated;
 
@@ -59,8 +61,10 @@ public class ContextResolver implements ActivityInterface, WatchDetectionInterfa
 
     private ContextResolver(Context context) {
         this.mContext = context;
-        checkCalendarPermissions = new CheckCalendarPermissions();
+        res = mContext.getResources();
+        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
+        checkCalendarPermissions = new CheckCalendarPermissions();
         appointmentCheck = new AppointmentCheck(context);
         daValue = -1;
         deviceState = new DeviceState(context);
@@ -76,17 +80,20 @@ public class ContextResolver implements ActivityInterface, WatchDetectionInterfa
 
         watchDetection.run();
 
-        if (!deviceState.isDisplayRunning()) {
+        // TODO: A refactoring of this code is needed to reduce unneccessary code
+        if(prefs.getBoolean(res.getString(R.string.useDisplayKey), true)) {
+            if (!deviceState.isDisplayRunning()) {
+                setContextValues();
+            } else if (deviceState.isDisplayRunning()) {
+                sendAnswerDisplayRunning();
+            }
+        } else {
             setContextValues();
-        } else if (deviceState.isDisplayRunning()) {
-            sendAnswerDisplayRunning();
         }
     }
 
     private void setContextValues() {
-        Resources res = mContext.getResources();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-        if (prefs.getBoolean(res.getString(R.string.useCalendarKey), true)) {
+          if (prefs.getBoolean(res.getString(R.string.useCalendarKey), true)) {
             Log.i(TAG, "Calendar Allowed");
 
             currentAppointment = appointmentCheck.checkCurrentAppointments();
