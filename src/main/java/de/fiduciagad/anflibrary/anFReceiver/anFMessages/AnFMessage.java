@@ -149,7 +149,7 @@ public abstract class AnFMessage {
     /**
      * @param context
      * @param anfPayload
-     * @return Liefert die korrekte instanz der AnFMessage zurück oder null wenn die Nachricht nicht valide ist
+     * @return Returns correct instance of a AnFMessage or null if Message isn't valid
      */
     public static AnFMessage getMessage(Context context, JSONObject anfPayload) {
         res = context.getResources();
@@ -180,6 +180,7 @@ public abstract class AnFMessage {
             String key = null;
             JSONObject jsonObject;
 
+            // TODO: Change Error Messages to exception handling.
             // Unterscheidung wird durchgeführt um festzulegen, dass für den einen Typ ein anderer Controller genutzt wird, und damit der Aufbau der Seiten anders erfolgt.
             boolean instantmessage = true;
             while (iterator.hasNext()) {
@@ -188,6 +189,7 @@ public abstract class AnFMessage {
                     jsonObject = anfPayload.getJSONObject(key);
                     PositionDependency positionDependency = new PositionDependency(jsonObject, context);
                     if (!positionDependency.isValid()) {
+                        Log.e(CLASS_NAME, "An Error in the position dependencies appeared.");
                         return null;
                     }
                     if (positionDependency.isTrigger()) {
@@ -213,7 +215,7 @@ public abstract class AnFMessage {
     }
 
     /**
-     * @return Liefert zurück ob die Nachricht valide ist oder nicht
+     * @return Returns if message is valid or not
      */
     public boolean isValid() {
         for (MessagePart messagePart : messagePartList) {

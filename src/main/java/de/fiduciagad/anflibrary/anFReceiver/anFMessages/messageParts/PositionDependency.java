@@ -119,6 +119,7 @@ public class PositionDependency extends MessagePart {
         for (Place placeObject : placeList) {
             if (!placeObject.setAddress()) {
                 isValidAddress = false;
+                showInvalidAddressError();
                 return false;
             }
 
@@ -178,5 +179,9 @@ public class PositionDependency extends MessagePart {
 
     public int getDuration() {
         return duration;
+    }
+
+    private void showInvalidAddressError(){
+        Log.e(CLASS_NAME, "Address: is invalid as a result the sent AnF-Message is invalid ");
     }
 }
