@@ -107,7 +107,8 @@ public class LocationMessageActivity extends FragmentActivity implements Locatio
             for (Address address : positionDependency.getAddresses()) {
 
                 if (address != null) {
-                    googleMap.addMarker(new MarkerOptions().position(new LatLng(address.getLatitude(), address.getLongitude())).title(positionDependency.getPlaceName()).snippet("Gesendet von der Nachricht"));
+                    // TODO: think about extending the place message part with a value for the snippet
+                    googleMap.addMarker(new MarkerOptions().position(new LatLng(address.getLatitude(), address.getLongitude())).title(positionDependency.getPlaceName()).snippet("sent by the message"));
                 }
             }
         }

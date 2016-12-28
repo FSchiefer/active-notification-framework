@@ -7,7 +7,8 @@ import de.fiduciagad.anflibrary.anFConnector.AnFConnector;
 import de.fiduciagad.anflibrary.anFReceiver.anFContextDetection.contextValue.ContextAnswer;
 
 /**
- * Created by Felix Schiefer on 04.01.2016.
+ * This Class is used to provide a Ribbon-Notification for position triggered messages
+ * that are while a user is at a specified position
  */
 public class LocationBasedNotification extends AnFNotificationCompat {
     private static String CLASS_NAME = LocationBasedNotification.class.getSimpleName();

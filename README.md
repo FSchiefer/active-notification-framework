@@ -21,11 +21,13 @@ Google provides the information how to obtain the key and how to insert it to yo
 
 ## How to Use
 
-This chapter will be added soon.
+The simple usage of the framework after the steps explained in the Requirements chapter can be viewed in the file "MainActivity" in the forlder sample. In this
+class the sample usage of the framework in an small activity is shown. If there is an interest for the sample app please contact Felix Schiefer. If there are Questions for
+more informations or samples please contact Felix to. 
 
 ## Contact
 
-Please contact Jens.Zimmermann@fiduciagad.de
+Please contact Felix.Schiefer_AnF@gmx.de or Jens.Zimmermann@fiduciagad.de
 
 ###### Disclaimer
 The Fiducia & GAD IT AG  is the service provider for information technology of the cooperative financial network. The provided software has emerged as part of a thesis within the Fiducia & GAD IT AG . It's now available as open source in this repository. The development of the software is carried out in deviation from the company's internal development process. It is therefore provided only WITHOUT ANY WARRANTY 
